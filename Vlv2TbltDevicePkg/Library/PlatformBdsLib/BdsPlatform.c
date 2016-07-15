@@ -2158,7 +2158,6 @@ BdsLockFv (
   EFI_FV_BLOCK_MAP_ENTRY      *BlockMap;
   EFI_FIRMWARE_VOLUME_HEADER  *FvHeader;
   EFI_PHYSICAL_ADDRESS        BaseAddress;
-  UINT8                       Data;
   UINT32                      BlockLength;
   UINTN                       Index;
 
@@ -2169,7 +2168,7 @@ BdsLockFv (
   while ((BlockMap->NumBlocks != 0) && (BlockMap->Length != 0)) {
     BlockLength = BlockMap->Length;
     for (Index = 0; Index < BlockMap->NumBlocks; Index++) {
-      Data = MmioOr8 ((UINTN) BaseAddress, 0x03);
+      MmioOr8 ((UINTN) BaseAddress, 0x03);
       BaseAddress += BlockLength;
     }
     BlockMap++;

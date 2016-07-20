@@ -500,8 +500,6 @@ IchRcrbInit (
   IN SYSTEM_CONFIGURATION        *SystemConfiguration
   )
 {
-  UINT8                           LpcRevisionID;
-  EFI_PLATFORM_CPU_INFO           *PlatformCpuInfo;
   EFI_PEI_HOB_POINTERS            Hob;
   EFI_BOOT_MODE                   BootMode;
 
@@ -510,7 +508,6 @@ IchRcrbInit (
   //
   Hob.Raw = GetFirstGuidHob (&gEfiPlatformCpuInfoGuid);
   ASSERT (Hob.Raw != NULL);
-  PlatformCpuInfo = GET_GUID_HOB_DATA(Hob.Raw);
 
   (*PeiServices)->GetBootMode(PeiServices, &BootMode);
 
@@ -530,8 +527,6 @@ IchRcrbInit (
   //
   // Initial RCBA according to the PeiRCBA table
   //
-  LpcRevisionID = PchLpcPciCfg8 (R_PCH_LPC_RID_CC);
-
   if ((BootMode == BOOT_ON_S3_RESUME)) {
     //
     // We are resuming from S3

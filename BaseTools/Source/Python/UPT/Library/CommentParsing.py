@@ -19,6 +19,7 @@ CommentParsing
 ##
 # Import Modules
 #
+from builtins import range
 import re
 
 from Library.String import GetSplitValueList
@@ -74,7 +75,7 @@ def ParseHeaderCommentSection(CommentList, FileName = None, IsBinaryHeader = Fal
     # first find the last copyright line
     #
     Last = 0
-    for Index in xrange(len(CommentList)-1, 0, -1):
+    for Index in range(len(CommentList)-1, 0, -1):
         Line = CommentList[Index][0]
         if _IsCopyrightLine(Line):
             Last = Index

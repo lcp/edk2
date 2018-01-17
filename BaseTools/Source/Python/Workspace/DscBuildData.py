@@ -18,6 +18,7 @@
 # into PlatformBuildClassObject form for easier use for AutoGen.
 #
 from __future__ import print_function
+from builtins import range
 from Common.String import *
 from Common.DataType import *
 from Common.Misc import *

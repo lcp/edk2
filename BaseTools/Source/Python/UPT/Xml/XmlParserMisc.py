@@ -15,6 +15,7 @@
 '''
 XmlParserMisc
 '''
+from builtins import range
 from Object.POM.CommonObject import TextObject
 from Logger.StringTable import ERR_XML_PARSER_REQUIRED_ITEM_MISSING
 from Logger.ToolError import PARSER_ERROR
@@ -53,7 +54,7 @@ def ConvertVariableName(VariableName):
         if SecondByte != 0:
             return None
   
-        if FirstByte not in xrange(0x20, 0x7F):
+        if FirstByte not in range(0x20, 0x7F):
             return None
         TransferedStr += ('%c')%FirstByte
         Index = Index + 2

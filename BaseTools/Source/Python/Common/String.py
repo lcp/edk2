@@ -14,6 +14,7 @@
 ##
 # Import Modules
 #
+from builtins import range
 import re
 import DataType
 import Common.LongFilePathOs as os

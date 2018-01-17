@@ -18,6 +18,7 @@ InfSectionParser
 ##
 # Import Modules
 #
+from builtins import range
 from copy import deepcopy
 import re
 
@@ -455,7 +456,7 @@ class InfSectionParser(InfDefinSectionParser,
                     Arch = Match.groups(1)[0].upper()
                     ArchList.append(Arch)
             CommentSoFar = ''
-            for Index in xrange(1, len(List)):
+            for Index in range(1, len(List)):
                 Result = ParseComment(List[Index], DT.ALL_USAGE_TOKENS, TokenDict, [], False)
                 Usage = Result[0]
                 Type = Result[1]

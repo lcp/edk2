@@ -19,6 +19,7 @@ Misc
 ##
 # Import Modules
 #
+from builtins import range
 import os.path
 from os import access
 from os import F_OK
@@ -437,7 +438,7 @@ class Sdict(IterableUserDict):
 def CommonPath(PathList):
     Path1 = min(PathList).split(os.path.sep)
     Path2 = max(PathList).split(os.path.sep)
-    for Index in xrange(min(len(Path1), len(Path2))):
+    for Index in range(min(len(Path1), len(Path2))):
         if Path1[Index] != Path2[Index]:
             return os.path.sep.join(Path1[:Index])
     return os.path.sep.join(Path1)
@@ -890,7 +891,7 @@ def ProcessEdkComment(LineList):
             if FindEdkBlockComment:
                 if FirstPos == -1:
                     FirstPos = StartPos
-                for Index in xrange(StartPos, EndPos+1):
+                for Index in range(StartPos, EndPos+1):
                     LineList[Index] = ''
                 FindEdkBlockComment = False
         elif Line.find("//") != -1 and not Line.startswith("#"):

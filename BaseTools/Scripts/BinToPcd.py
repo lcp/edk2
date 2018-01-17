@@ -16,6 +16,7 @@ BinToPcd
 '''
 from __future__ import print_function
 
+from builtins import range
 import sys
 import argparse
 import re
@@ -84,7 +85,7 @@ if __name__ == '__main__':
                       help = "Increase output messages")
   parser.add_argument("-q", "--quiet", dest = 'Quiet', action = "store_true",
                       help = "Reduce output messages")
-  parser.add_argument("--debug", dest = 'Debug', type = int, metavar = '[0-9]', choices = range(0,10), default = 0,
+  parser.add_argument("--debug", dest = 'Debug', type = int, metavar = '[0-9]', choices = list(range(0,10)), default = 0,
                       help = "Set debug level")
 
   #

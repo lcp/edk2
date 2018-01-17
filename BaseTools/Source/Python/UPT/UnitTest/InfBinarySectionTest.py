@@ -12,6 +12,7 @@
 # WITHOUT WARRANTIES OR REPRESENTATIONS OF ANY KIND, EITHER EXPRESS OR IMPLIED.
 
 from __future__ import print_function
+from builtins import range
 import os
 #import Object.Parser.InfObject as InfObject
 from Object.Parser.InfCommonObject import CurrentLine

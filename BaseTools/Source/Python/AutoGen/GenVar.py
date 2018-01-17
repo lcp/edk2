@@ -14,6 +14,7 @@
 # #
 # Import Modules
 #
+from builtins import range
 from struct import pack,unpack
 import collections
 import copy

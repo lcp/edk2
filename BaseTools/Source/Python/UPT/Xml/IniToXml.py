@@ -16,6 +16,7 @@
 IniToXml
 '''
 
+from builtins import range
 import os.path
 import re
 from time import strftime

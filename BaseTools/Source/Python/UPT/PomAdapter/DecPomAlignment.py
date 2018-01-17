@@ -20,6 +20,7 @@ from __future__ import print_function
 ##
 # Import Modules
 #
+from builtins import range
 import os.path
 from os import sep
 import platform

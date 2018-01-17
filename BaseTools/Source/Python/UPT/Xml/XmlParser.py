@@ -19,6 +19,7 @@ XmlParser
 ##
 # Import Modules
 #
+from builtins import range
 import re
 
 from Library.Xml.XmlRoutines import XmlNode

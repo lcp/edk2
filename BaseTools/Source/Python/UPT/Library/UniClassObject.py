@@ -19,6 +19,7 @@ from __future__ import print_function
 ##
 # Import Modules
 #
+from builtins import range
 import os, codecs, re
 import distutils.util
 from Logger import ToolError
@@ -515,7 +516,7 @@ class UniFileClassObject(object):
                     FileIn[LineCount-1] = Line
                     FileIn[LineCount] = '\r\n'
                     LineCount -= 1
-                    for Index in xrange (LineCount + 1, len (FileIn) - 1):
+                    for Index in range (LineCount + 1, len (FileIn) - 1):
                         if (Index == len(FileIn) -1):
                             FileIn[Index] = '\r\n'
                         else:

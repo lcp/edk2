@@ -18,6 +18,7 @@ String
 ##
 # Import Modules
 #
+from builtins import range
 import re
 import os.path
 from string import strip

@@ -17,6 +17,7 @@ from __future__ import print_function
 #
 # Import Modules
 #
+from builtins import range
 import argparse
 import io
 import os.path

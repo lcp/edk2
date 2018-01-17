@@ -19,6 +19,7 @@ UPT
 
 ## import modules
 #
+from builtins import range
 import locale
 import sys
 encoding = locale.getdefaultlocale()[1]

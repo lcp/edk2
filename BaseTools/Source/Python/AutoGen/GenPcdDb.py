@@ -10,6 +10,7 @@
 # THE PROGRAM IS DISTRIBUTED UNDER THE BSD LICENSE ON AN "AS IS" BASIS,
 # WITHOUT WARRANTIES OR REPRESENTATIONS OF ANY KIND, EITHER EXPRESS OR IMPLIED.
 #
+from builtins import range
 from StringIO import StringIO
 from Common.Misc import *
 from Common.String import StringToArray
@@ -297,7 +298,7 @@ class DbItemList:
             # Variable length, need to calculate one by one
             #
             assert(Index < len(self.RawDataList))
-            for ItemIndex in xrange(Index):
+            for ItemIndex in range(Index):
                 Offset += len(self.RawDataList[ItemIndex])
         else:
             for Datas in self.RawDataList:
@@ -394,7 +395,7 @@ class DbComItemList (DbItemList):
             assert(False)
         else:
             assert(Index < len(self.RawDataList))
-            for ItemIndex in xrange(Index):
+            for ItemIndex in range(Index):
                 Offset += len(self.RawDataList[ItemIndex]) * self.ItemSize         
 
         return Offset
@@ -478,7 +479,7 @@ class DbStringHeadTableItemList(DbItemList):
             # Variable length, need to calculate one by one
             #
             assert(Index < len(self.RawDataList))
-            for ItemIndex in xrange(Index):
+            for ItemIndex in range(Index):
                 Offset += len(self.RawDataList[ItemIndex])
         else:
             for innerIndex in range(Index):
@@ -568,14 +569,14 @@ class DbStringItemList (DbComItemList):
         assert(len(RawDataList) == len(LenList))
         DataList = []
         # adjust DataList according to the LenList
-        for Index in xrange(len(RawDataList)):
+        for Index in range(len(RawDataList)):
             Len = LenList[Index]
             RawDatas = RawDataList[Index]
             assert(Len >= len(RawDatas))
             ActualDatas = []
-            for i in xrange(len(RawDatas)):
+            for i in range(len(RawDatas)):
                 ActualDatas.append(RawDatas[i])
-            for i in xrange(len(RawDatas), Len):
+            for i in range(len(RawDatas), Len):
                 ActualDatas.append(0)
             DataList.append(ActualDatas)
         self.LenList = LenList
@@ -584,7 +585,7 @@ class DbStringItemList (DbComItemList):
         Offset = 0
 
         assert(Index < len(self.LenList))
-        for ItemIndex in xrange(Index):
+        for ItemIndex in range(Index):
             Offset += self.LenList[ItemIndex]
 
         return Offset
@@ -772,7 +773,7 @@ def BuildExDataBase(Dict):
 
     # Get offset of SkuId table in the database 
     SkuIdTableOffset = FixedHeaderLen
-    for DbIndex in xrange(len(DbTotal)):
+    for DbIndex in range(len(DbTotal)):
         if DbTotal[DbIndex] is SkuidValue:
             break
         SkuIdTableOffset += DbItemTotal[DbIndex].GetListSize()
@@ -784,7 +785,7 @@ def BuildExDataBase(Dict):
     for (LocalTokenNumberTableIndex, (Offset, Table)) in enumerate(LocalTokenNumberTable):
         DbIndex = 0
         DbOffset = FixedHeaderLen
-        for DbIndex in xrange(len(DbTotal)):
+        for DbIndex in range(len(DbTotal)):
             if DbTotal[DbIndex] is Table:
                 DbOffset += DbItemTotal[DbIndex].GetInterOffset(Offset)
                 break
@@ -810,7 +811,7 @@ def BuildExDataBase(Dict):
             (VariableHeadGuidIndex, VariableHeadStringIndex, SKUVariableOffset, VariableOffset, VariableRefTable, VariableAttribute) = VariableEntryPerSku[:]
             DbIndex = 0
             DbOffset = FixedHeaderLen
-            for DbIndex in xrange(len(DbTotal)):
+            for DbIndex in range(len(DbTotal)):
                 if DbTotal[DbIndex] is VariableRefTable:
                     DbOffset += DbItemTotal[DbIndex].GetInterOffset(VariableOffset)
                     break
@@ -830,7 +831,7 @@ def BuildExDataBase(Dict):
 
     # calculate various table offset now
     DbTotalLength = FixedHeaderLen
-    for DbIndex in xrange(len(DbItemTotal)):
+    for DbIndex in range(len(DbItemTotal)):
         if DbItemTotal[DbIndex] is DbLocalTokenNumberTable:
             LocalTokenNumberTableOffset = DbTotalLength
         elif DbItemTotal[DbIndex] is DbExMapTable:

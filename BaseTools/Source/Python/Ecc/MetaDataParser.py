@@ -11,6 +11,7 @@
 # WITHOUT WARRANTIES OR REPRESENTATIONS OF ANY KIND, EITHER EXPRESS OR IMPLIED.
 #
 
+from builtins import range
 import Common.LongFilePathOs as os
 from CommonDataClass.DataClass import *
 from EccToolError import *
@@ -112,7 +113,7 @@ def ParseHeaderCommentSection(CommentList, FileName = None):
     #
     Last = 0
     HeaderCommentStage = HEADER_COMMENT_NOT_STARTED
-    for Index in xrange(len(CommentList)-1, 0, -1):
+    for Index in range(len(CommentList)-1, 0, -1):
         Line = CommentList[Index][0]
         if _IsCopyrightLine(Line):
             Last = Index

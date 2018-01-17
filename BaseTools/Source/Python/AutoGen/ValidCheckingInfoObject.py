@@ -15,6 +15,7 @@
 # Import Modules
 #
 from __future__ import print_function
+from builtins import range
 import os
 from Common.RangeExpression import RangeExpression
 from Common.Misc import *

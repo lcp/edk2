@@ -17,6 +17,7 @@
 # Import Modules
 #
 from __future__ import print_function
+from builtins import range
 import Common.LongFilePathOs as os, codecs, re
 import distutils.util
 import Common.EdkLogger as EdkLogger

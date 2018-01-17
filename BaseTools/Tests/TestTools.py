@@ -16,6 +16,7 @@
 # Import Modules
 #
 from __future__ import print_function
+from builtins import range
 import base64
 import os
 import os.path
@@ -162,7 +163,7 @@ class BaseToolsTest(unittest.TestCase):
         if maxlen is None: maxlen = minlen
         return ''.join(
             [chr(random.randint(0,255))
-             for x in xrange(random.randint(minlen, maxlen))
+             for x in range(random.randint(minlen, maxlen))
             ])
 
     def setUp(self):

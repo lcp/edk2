@@ -1815,7 +1815,7 @@ class DscBuildData(PlatformBuildClassObject):
             Messages = StdErr
         Messages = Messages.split('\n')
         MessageGroup = []
-        if returncode <>0:
+        if returncode !=0:
             CAppBaseFileName = os.path.join(self.OutputPath, PcdValueInitName)
             File = open (CAppBaseFileName + '.c', 'r')
             FileData = File.readlines()
@@ -1861,7 +1861,7 @@ class DscBuildData(PlatformBuildClassObject):
 
         Command = PcdValueInitExe + ' -i %s -o %s' % (InputValueFile, OutputValueFile)
         returncode, StdOut, StdErr = self.ExecuteCommand (Command)
-        if returncode <> 0:
+        if returncode != 0:
             EdkLogger.warn('Build', COMMAND_FAILURE, 'Can not collect output from command: %s' % Command)
             FileBuffer = []
         else:

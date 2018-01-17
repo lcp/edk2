@@ -3953,7 +3953,7 @@ class ModuleAutoGen(AutoGen):
             return
 
         # Skip the following code for modules without any binary files
-        if self.BinaryFileList <> None and self.BinaryFileList <> []:
+        if self.BinaryFileList != None and self.BinaryFileList != []:
             return
             
         ### TODO: How to handles mixed source and binary modules
@@ -4421,7 +4421,7 @@ class ModuleAutoGen(AutoGen):
             Dpx = GenDepex.DependencyExpression(self.DepexList[ModuleType], ModuleType, True)
             DpxFile = gAutoGenDepexFileName % {"module_name" : self.Name}
 
-            if len(Dpx.PostfixNotation) <> 0:
+            if len(Dpx.PostfixNotation) != 0:
                 self.DepexGenerated = True
 
             if Dpx.Generate(path.join(self.OutputDir, DpxFile)):

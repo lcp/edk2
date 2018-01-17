@@ -14,6 +14,7 @@
 ##
 # Import Modules
 #
+from __future__ import print_function
 import Common.LongFilePathOs as os
 import re
 import copy
@@ -625,19 +626,19 @@ if __name__ == '__main__':
     EdkLogger.Initialize()
     if len(sys.argv) > 1:
         Br = BuildRule(sys.argv[1])
-        print str(Br[".c", "DXE_DRIVER", "IA32", "MSFT"][1])
-        print
-        print str(Br[".c", "DXE_DRIVER", "IA32", "INTEL"][1])
-        print
-        print str(Br[".c", "DXE_DRIVER", "IA32", "GCC"][1])
-        print
-        print str(Br[".ac", "ACPI_TABLE", "IA32", "MSFT"][1])
-        print
-        print str(Br[".h", "ACPI_TABLE", "IA32", "INTEL"][1])
-        print
-        print str(Br[".ac", "ACPI_TABLE", "IA32", "MSFT"][1])
-        print
-        print str(Br[".s", "SEC", "IPF", "COMMON"][1])
-        print
-        print str(Br[".s", "SEC"][1])
+        print(str(Br[".c", "DXE_DRIVER", "IA32", "MSFT"][1]))
+        print()
+        print(str(Br[".c", "DXE_DRIVER", "IA32", "INTEL"][1]))
+        print()
+        print(str(Br[".c", "DXE_DRIVER", "IA32", "GCC"][1]))
+        print()
+        print(str(Br[".ac", "ACPI_TABLE", "IA32", "MSFT"][1]))
+        print()
+        print(str(Br[".h", "ACPI_TABLE", "IA32", "INTEL"][1]))
+        print()
+        print(str(Br[".ac", "ACPI_TABLE", "IA32", "MSFT"][1]))
+        print()
+        print(str(Br[".s", "SEC", "IPF", "COMMON"][1]))
+        print()
+        print(str(Br[".s", "SEC"][1]))
 

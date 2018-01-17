@@ -14,6 +14,7 @@
 '''
 BinToPcd
 '''
+from __future__ import print_function
 
 import sys
 import argparse
@@ -98,7 +99,7 @@ if __name__ == '__main__':
     Buffer = args.InputFile.read()
     args.InputFile.close()
   except:
-    print 'BinToPcd: error: can not read binary input file'
+    print('BinToPcd: error: can not read binary input file')
     sys.exit()
 
   #
@@ -109,7 +110,7 @@ if __name__ == '__main__':
     # If PcdName is None, then only a PCD value is being requested.
     Pcd = ByteArray (Buffer)
     if args.Verbose:
-      print 'PcdToBin: Convert binary file to PCD Value'
+      print('PcdToBin: Convert binary file to PCD Value')
   elif args.PcdType is None:
     #
     # If --type is neither VPD nor HII, then use PCD statement syntax that is
@@ -123,18 +124,18 @@ if __name__ == '__main__':
       #
       Pcd = '  %s|%s' % (args.PcdName, ByteArray (Buffer))
     elif args.MaxSize < len(Buffer):
-      print 'BinToPcd: error: argument --max-size is smaller than input file.'
+      print('BinToPcd: error: argument --max-size is smaller than input file.')
       sys.exit()
     else:
       Pcd = '  %s|%s|VOID*|%d' % (args.PcdName, ByteArray (Buffer), args.MaxSize)
       args.MaxSize = len(Buffer)
     
     if args.Verbose:
-      print 'PcdToBin: Convert binary file to PCD statement compatible with PCD sections:'
-      print '    [PcdsFixedAtBuild]'
-      print '    [PcdsPatchableInModule]'
-      print '    [PcdsDynamicDefault]'
-      print '    [PcdsDynamicExDefault]'
+      print('PcdToBin: Convert binary file to PCD statement compatible with PCD sections:')
+      print('    [PcdsFixedAtBuild]')
+      print('    [PcdsPatchableInModule]')
+      print('    [PcdsDynamicDefault]')
+      print('    [PcdsDynamicExDefault]')
   elif args.PcdType == 'VPD':
     if args.MaxSize is None:
       #
@@ -143,7 +144,7 @@ if __name__ == '__main__':
       #
       args.MaxSize = len(Buffer)
     if args.MaxSize < len(Buffer):
-      print 'BinToPcd: error: argument --max-size is smaller than input file.'
+      print('BinToPcd: error: argument --max-size is smaller than input file.')
       sys.exit()
     if args.Offset is None:
       #
@@ -157,15 +158,15 @@ if __name__ == '__main__':
       #
       Pcd = '  %s|%d|%d|%s' % (args.PcdName, args.Offset, args.MaxSize, ByteArray (Buffer))
     if args.Verbose:
-      print 'PcdToBin: Convert binary file to PCD statement compatible with PCD sections'
-      print '    [PcdsDynamicVpd]'
-      print '    [PcdsDynamicExVpd]'
+      print('PcdToBin: Convert binary file to PCD statement compatible with PCD sections')
+      print('    [PcdsDynamicVpd]')
+      print('    [PcdsDynamicExVpd]')
   elif args.PcdType == 'HII':
     if args.VariableGuid is None:
-      print 'BinToPcd: error: argument --variable-guid is required for --type HII.'
+      print('BinToPcd: error: argument --variable-guid is required for --type HII.')
       sys.exit()
     if args.VariableName is None:
-      print 'BinToPcd: error: argument --variable-name is required for --type HII.'
+      print('BinToPcd: error: argument --variable-name is required for --type HII.')
       sys.exit()
     if args.Offset is None:
       #
@@ -174,9 +175,9 @@ if __name__ == '__main__':
       args.Offset = 0
     Pcd = '  %s|L"%s"|%s|%d|%s' % (args.PcdName, args.VariableName, args.VariableGuid, args.Offset, ByteArray (Buffer))
     if args.Verbose:
-      print 'PcdToBin: Convert binary file to PCD statement compatible with PCD sections'
-      print '    [PcdsDynamicHii]'
-      print '    [PcdsDynamicExHii]'
+      print('PcdToBin: Convert binary file to PCD statement compatible with PCD sections')
+      print('    [PcdsDynamicHii]')
+      print('    [PcdsDynamicExHii]')
 
   #
   # Write PCD value or PCD statement to the output file
@@ -189,4 +190,4 @@ if __name__ == '__main__':
     # If output file is not specified or it can not be written, then write the
     # PCD value or PCD statement to the console
     #
-    print Pcd
+    print(Pcd)

@@ -14,6 +14,7 @@
 ##
 # Import Modules
 #
+from __future__ import print_function
 import Common.LongFilePathOs as os
 import Common.EdkLogger as EdkLogger
 from Common.DataType import *
@@ -315,6 +316,6 @@ class Configuration(object):
                 self.__dict__[List[0]] = List[1]
 
     def ShowMe(self):
-        print self.Filename
+        print(self.Filename)
         for Key in self.__dict__.keys():
-            print Key, '=', self.__dict__[Key]
+            print(Key, '=', self.__dict__[Key])

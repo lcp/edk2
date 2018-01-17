@@ -14,6 +14,7 @@
 ##
 # Import Modules
 #
+from __future__ import print_function
 import Common.LongFilePathOs as os
 import EdkLogger as EdkLogger
 import Database
@@ -1365,7 +1366,7 @@ class Dsc(DscObject):
     # Print all members and their values of Dsc class
     #
     def ShowDsc(self):
-        print TAB_SECTION_START + TAB_INF_DEFINES + TAB_SECTION_END
+        print(TAB_SECTION_START + TAB_INF_DEFINES + TAB_SECTION_END)
         printDict(self.Defines.DefinesDictionary)
 
         for Key in self.KeyList:
@@ -1382,47 +1383,47 @@ class Dsc(DscObject):
     def ShowPlatform(self):
         M = self.Platform
         for Arch in M.Header.keys():
-            print '\nArch =', Arch
-            print 'Filename =', M.Header[Arch].FileName
-            print 'FullPath =', M.Header[Arch].FullPath
-            print 'BaseName =', M.Header[Arch].Name
-            print 'Guid =', M.Header[Arch].Guid
-            print 'Version =', M.Header[Arch].Version
-            print 'DscSpecification =', M.Header[Arch].DscSpecification
-            print 'SkuId =', M.Header[Arch].SkuIdName
-            print 'SupArchList =', M.Header[Arch].SupArchList
-            print 'BuildTargets =', M.Header[Arch].BuildTargets
-            print 'OutputDirectory =', M.Header[Arch].OutputDirectory
-            print 'BuildNumber =', M.Header[Arch].BuildNumber
-            print 'MakefileName =', M.Header[Arch].MakefileName
-            print 'BsBaseAddress =', M.Header[Arch].BsBaseAddress
-            print 'RtBaseAddress =', M.Header[Arch].RtBaseAddress
-            print 'Define =', M.Header[Arch].Define
-        print 'Fdf =', M.FlashDefinitionFile.FilePath
-        print '\nBuildOptions =', M.BuildOptions, M.BuildOptions.IncludeFiles
+            print('\nArch =', Arch)
+            print('Filename =', M.Header[Arch].FileName)
+            print('FullPath =', M.Header[Arch].FullPath)
+            print('BaseName =', M.Header[Arch].Name)
+            print('Guid =', M.Header[Arch].Guid)
+            print('Version =', M.Header[Arch].Version)
+            print('DscSpecification =', M.Header[Arch].DscSpecification)
+            print('SkuId =', M.Header[Arch].SkuIdName)
+            print('SupArchList =', M.Header[Arch].SupArchList)
+            print('BuildTargets =', M.Header[Arch].BuildTargets)
+            print('OutputDirectory =', M.Header[Arch].OutputDirectory)
+            print('BuildNumber =', M.Header[Arch].BuildNumber)
+            print('MakefileName =', M.Header[Arch].MakefileName)
+            print('BsBaseAddress =', M.Header[Arch].BsBaseAddress)
+            print('RtBaseAddress =', M.Header[Arch].RtBaseAddress)
+            print('Define =', M.Header[Arch].Define)
+        print('Fdf =', M.FlashDefinitionFile.FilePath)
+        print('\nBuildOptions =', M.BuildOptions, M.BuildOptions.IncludeFiles)
         for Item in M.BuildOptions.BuildOptionList:
-            print '\t', 'ToolChainFamily =', Item.ToolChainFamily, 'ToolChain =', Item.ToolChain, 'Option =', Item.Option, 'Arch =', Item.SupArchList
-        print '\nSkuIds =', M.SkuInfos.SkuInfoList, M.SkuInfos.IncludeFiles
-        print '\nLibraries =', M.Libraries, M.Libraries.IncludeFiles
+            print('\t', 'ToolChainFamily =', Item.ToolChainFamily, 'ToolChain =', Item.ToolChain, 'Option =', Item.Option, 'Arch =', Item.SupArchList)
+        print('\nSkuIds =', M.SkuInfos.SkuInfoList, M.SkuInfos.IncludeFiles)
+        print('\nLibraries =', M.Libraries, M.Libraries.IncludeFiles)
         for Item in M.Libraries.LibraryList:
-            print '\t', Item.FilePath, Item.SupArchList, Item.Define
-        print '\nLibraryClasses =', M.LibraryClasses, M.LibraryClasses.IncludeFiles
+            print('\t', Item.FilePath, Item.SupArchList, Item.Define)
+        print('\nLibraryClasses =', M.LibraryClasses, M.LibraryClasses.IncludeFiles)
         for Item in M.LibraryClasses.LibraryList:
-            print '\t', Item.Name, Item.FilePath, Item.SupModuleList, Item.SupArchList, Item.Define
-        print '\nPcds =', M.DynamicPcdBuildDefinitions
+            print('\t', Item.Name, Item.FilePath, Item.SupModuleList, Item.SupArchList, Item.Define)
+        print('\nPcds =', M.DynamicPcdBuildDefinitions)
         for Item in M.DynamicPcdBuildDefinitions:
-            print '\tCname=', Item.CName, 'TSG=', Item.TokenSpaceGuidCName, 'Value=', Item.DefaultValue, 'Token=', Item.Token, 'Type=', Item.ItemType, 'Datum=', Item.DatumType, 'Size=', Item.MaxDatumSize, 'Arch=', Item.SupArchList, Item.SkuInfoList
+            print('\tCname=', Item.CName, 'TSG=', Item.TokenSpaceGuidCName, 'Value=', Item.DefaultValue, 'Token=', Item.Token, 'Type=', Item.ItemType, 'Datum=', Item.DatumType, 'Size=', Item.MaxDatumSize, 'Arch=', Item.SupArchList, Item.SkuInfoList)
             for Sku in Item.SkuInfoList.values():
-                print '\t\t', str(Sku)
-        print '\nComponents =', M.Modules.ModuleList, M.Modules.IncludeFiles
+                print('\t\t', str(Sku))
+        print('\nComponents =', M.Modules.ModuleList, M.Modules.IncludeFiles)
         for Item in M.Modules.ModuleList:
-            print '\t', Item.FilePath, Item.ExecFilePath, Item.SupArchList
+            print('\t', Item.FilePath, Item.ExecFilePath, Item.SupArchList)
             for Lib in Item.LibraryClasses.LibraryList:
-                print '\t\tLib:', Lib.Name, Lib.FilePath
+                print('\t\tLib:', Lib.Name, Lib.FilePath)
             for Bo in Item.ModuleSaBuildOption.BuildOptionList:
-                print '\t\tBuildOption:', Bo.ToolChainFamily, Bo.ToolChain, Bo.Option
+                print('\t\tBuildOption:', Bo.ToolChainFamily, Bo.ToolChain, Bo.Option)
             for Pcd in Item.PcdBuildDefinitions:
-                print '\t\tPcd:', Pcd.CName, Pcd.TokenSpaceGuidCName, Pcd.MaxDatumSize, Pcd.DefaultValue, Pcd.ItemType
+                print('\t\tPcd:', Pcd.CName, Pcd.TokenSpaceGuidCName, Pcd.MaxDatumSize, Pcd.DefaultValue, Pcd.ItemType)
 
 ##
 #

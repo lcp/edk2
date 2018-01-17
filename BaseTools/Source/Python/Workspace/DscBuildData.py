@@ -17,6 +17,7 @@
 #  This class is used to retrieve information stored in database and convert them
 # into PlatformBuildClassObject form for easier use for AutoGen.
 #
+from __future__ import print_function
 from Common.String import *
 from Common.DataType import *
 from Common.Misc import *
@@ -1071,9 +1072,9 @@ class DscBuildData(PlatformBuildClassObject):
             for skuid in pcdobj.SkuInfoList:
                 if pcdobj.Type in (self._PCD_TYPE_STRING_[MODEL_PCD_DYNAMIC_HII],self._PCD_TYPE_STRING_[MODEL_PCD_DYNAMIC_EX_HII]):
                     for storename in pcdobj.SkuInfoList[skuid].DefaultStoreDict:
-                        print "PcdCName: %s, SkuName: %s, StoreName: %s, Value: %s" % (".".join((pcdobj.TokenSpaceGuidCName, pcdobj.TokenCName)), skuid,storename,str(pcdobj.SkuInfoList[skuid].DefaultStoreDict[storename]))
+                        print("PcdCName: %s, SkuName: %s, StoreName: %s, Value: %s" % (".".join((pcdobj.TokenSpaceGuidCName, pcdobj.TokenCName)), skuid,storename,str(pcdobj.SkuInfoList[skuid].DefaultStoreDict[storename])))
                 else:
-                    print "PcdCName: %s, SkuName: %s, Value: %s" % (".".join((pcdobj.TokenSpaceGuidCName, pcdobj.TokenCName)), skuid,str(pcdobj.SkuInfoList[skuid].DefaultValue))
+                    print("PcdCName: %s, SkuName: %s, Value: %s" % (".".join((pcdobj.TokenSpaceGuidCName, pcdobj.TokenCName)), skuid,str(pcdobj.SkuInfoList[skuid].DefaultValue)))
     ## Retrieve [BuildOptions]
     def _GetBuildOptions(self):
         if self._BuildOptions == None:
@@ -1280,7 +1281,7 @@ class DscBuildData(PlatformBuildClassObject):
             for (skuname,StoreName,PcdGuid,PcdName,PcdValue) in Str_Pcd_Values:
                 str_pcd_obj = S_pcd_set.get((PcdName, PcdGuid))
                 if str_pcd_obj is None:
-                    print PcdName, PcdGuid
+                    print(PcdName, PcdGuid)
                     raise
                 if str_pcd_obj.Type in [self._PCD_TYPE_STRING_[MODEL_PCD_DYNAMIC_HII],
                                         self._PCD_TYPE_STRING_[MODEL_PCD_DYNAMIC_EX_HII]]:
@@ -1457,10 +1458,10 @@ class DscBuildData(PlatformBuildClassObject):
         if Value[0] == '{' and Value[-1] == '}':
             return True
         if Value.startswith("L'") and Value.endswith("'") and len(list(Value[2:-1])) > 1:
-            print 'foo = ', list(Value[2:-1])
+            print('foo = ', list(Value[2:-1]))
             return True
         if Value[0] == "'" and Value[-1] == "'" and len(list(Value[1:-1])) > 1:
-            print 'bar = ', list(Value[1:-1])
+            print('bar = ', list(Value[1:-1]))
             return True
         return False
 

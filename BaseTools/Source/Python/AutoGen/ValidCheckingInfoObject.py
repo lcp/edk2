@@ -14,6 +14,7 @@
 # #
 # Import Modules
 #
+from __future__ import print_function
 import os
 from Common.RangeExpression import RangeExpression
 from Common.Misc import *
@@ -345,6 +346,6 @@ if __name__ == "__main__":
     test2 = TestObj(2)
     
     testarr = [test1, test2]
-    print TestObj(2) in testarr
-    print TestObj(2) == test2
+    print(TestObj(2) in testarr)
+    print(TestObj(2) == test2)
     

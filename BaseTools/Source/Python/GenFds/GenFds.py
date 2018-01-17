@@ -15,6 +15,7 @@
 ##
 # Import Modules
 #
+from __future__ import print_function
 from optparse import OptionParser
 import sys
 import Common.LongFilePathOs as os
@@ -743,7 +744,7 @@ class GenFds :
         ModuleDict = BuildDb.BuildObject[DscFile, 'COMMON', GenFdsGlobalVariable.TargetName, GenFdsGlobalVariable.ToolChainTag].Modules
         for Key in ModuleDict:
             ModuleObj = BuildDb.BuildObject[Key, 'COMMON', GenFdsGlobalVariable.TargetName, GenFdsGlobalVariable.ToolChainTag]
-            print ModuleObj.BaseName + ' ' + ModuleObj.ModuleType
+            print(ModuleObj.BaseName + ' ' + ModuleObj.ModuleType)
 
     def GenerateGuidXRefFile(BuildDb, ArchList, FdfParserObj):
         GuidXRefFileName = os.path.join(GenFdsGlobalVariable.FvDir, "Guid.xref")

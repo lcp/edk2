@@ -14,6 +14,7 @@
 ##
 # Import Modules
 #
+from __future__ import print_function
 import Common.LongFilePathOs as os, string, copy, pdb, copy
 import EdkLogger
 import DataType
@@ -1568,89 +1569,89 @@ class WorkspaceBuild(object):
     # Print each item of the workspacebuild with (Key = Value) pair
     #
     def ShowWorkspaceBuild(self):
-        print self.DscDatabase
-        print self.InfDatabase
-        print self.DecDatabase
-        print 'SupArchList', self.SupArchList
-        print 'BuildTarget', self.BuildTarget
-        print 'SkuId', self.SkuId
+        print(self.DscDatabase)
+        print(self.InfDatabase)
+        print(self.DecDatabase)
+        print('SupArchList', self.SupArchList)
+        print('BuildTarget', self.BuildTarget)
+        print('SkuId', self.SkuId)
 
         for Arch in self.SupArchList:
-            print Arch
-            print 'Platform'
+            print(Arch)
+            print('Platform')
             for Platform in self.Build[Arch].PlatformDatabase.keys():
                 P = self.Build[Arch].PlatformDatabase[Platform]
-                print 'DescFilePath = ', P.DescFilePath
-                print 'PlatformName = ', P.PlatformName
-                print 'Guid = ', P.Guid
-                print 'Version = ', P.Version
-                print 'OutputDirectory = ', P.OutputDirectory
-                print 'FlashDefinition = ', P.FlashDefinition
-                print 'SkuIds = ', P.SkuIds
-                print 'Modules = ', P.Modules
-                print 'LibraryClasses = ', P.LibraryClasses
-                print 'Pcds = ', P.Pcds
+                print('DescFilePath = ', P.DescFilePath)
+                print('PlatformName = ', P.PlatformName)
+                print('Guid = ', P.Guid)
+                print('Version = ', P.Version)
+                print('OutputDirectory = ', P.OutputDirectory)
+                print('FlashDefinition = ', P.FlashDefinition)
+                print('SkuIds = ', P.SkuIds)
+                print('Modules = ', P.Modules)
+                print('LibraryClasses = ', P.LibraryClasses)
+                print('Pcds = ', P.Pcds)
                 for item in P.Pcds.keys():
-                    print P.Pcds[item]
-                print 'BuildOptions = ', P.BuildOptions
-                print ''
+                    print(P.Pcds[item])
+                print('BuildOptions = ', P.BuildOptions)
+                print('')
             # End of Platform
 
-            print 'package'
+            print('package')
             for Package in self.Build[Arch].PackageDatabase.keys():
                 P = self.Build[Arch].PackageDatabase[Package]
-                print 'DescFilePath = ', P.DescFilePath
-                print 'PackageName = ', P.PackageName
-                print 'Guid = ', P.Guid
-                print 'Version = ', P.Version
-                print 'Protocols = ', P.Protocols
-                print 'Ppis = ', P.Ppis
-                print 'Guids = ', P.Guids
-                print 'Includes = ', P.Includes
-                print 'LibraryClasses = ', P.LibraryClasses
-                print 'Pcds = ', P.Pcds
+                print('DescFilePath = ', P.DescFilePath)
+                print('PackageName = ', P.PackageName)
+                print('Guid = ', P.Guid)
+                print('Version = ', P.Version)
+                print('Protocols = ', P.Protocols)
+                print('Ppis = ', P.Ppis)
+                print('Guids = ', P.Guids)
+                print('Includes = ', P.Includes)
+                print('LibraryClasses = ', P.LibraryClasses)
+                print('Pcds = ', P.Pcds)
                 for item in P.Pcds.keys():
-                    print P.Pcds[item]
-                print ''
+                    print(P.Pcds[item])
+                print('')
             # End of Package
 
-            print 'module'
+            print('module')
             for Module in self.Build[Arch].ModuleDatabase.keys():
                 P = self.Build[Arch].ModuleDatabase[Module]
-                print 'DescFilePath = ', P.DescFilePath
-                print 'BaseName = ', P.BaseName
-                print 'ModuleType = ', P.ModuleType
-                print 'Guid = ', P.Guid
-                print 'Version = ', P.Version
-                print 'CustomMakefile = ', P.CustomMakefile
-                print 'Specification = ', P.Specification
-                print 'Shadow = ', P.Shadow
-                print 'PcdIsDriver = ', P.PcdIsDriver
+                print('DescFilePath = ', P.DescFilePath)
+                print('BaseName = ', P.BaseName)
+                print('ModuleType = ', P.ModuleType)
+                print('Guid = ', P.Guid)
+                print('Version = ', P.Version)
+                print('CustomMakefile = ', P.CustomMakefile)
+                print('Specification = ', P.Specification)
+                print('Shadow = ', P.Shadow)
+                print('PcdIsDriver = ', P.PcdIsDriver)
                 for Lib in P.LibraryClass:
-                    print 'LibraryClassDefinition = ', Lib.LibraryClass, 'SupModList = ', Lib.SupModList
-                print 'ModuleEntryPointList = ', P.ModuleEntryPointList
-                print 'ModuleUnloadImageList = ', P.ModuleUnloadImageList
-                print 'ConstructorList = ', P.ConstructorList
-                print 'DestructorList = ', P.DestructorList
+                    print('LibraryClassDefinition = ', Lib.LibraryClass, 'SupModList = ', Lib.SupModList)
+                print('ModuleEntryPointList = ', P.ModuleEntryPointList)
+                print('ModuleUnloadImageList = ', P.ModuleUnloadImageList)
+                print('ConstructorList = ', P.ConstructorList)
+                print('DestructorList = ', P.DestructorList)
 
-                print 'Binaries = '
+                print('Binaries = ')
                 for item in P.Binaries:
-                    print item.BinaryFile, item.FeatureFlag, item.SupArchList
-                print 'Sources = '
+                    print(item.BinaryFile, item.FeatureFlag, item.SupArchList)
+                print('Sources = ')
                 for item in P.Sources:
-                    print item.SourceFile
-                print 'LibraryClasses = ', P.LibraryClasses
-                print 'Protocols = ', P.Protocols
-                print 'Ppis = ', P.Ppis
-                print 'Guids = ', P.Guids
-                print 'Includes = ', P.Includes
-                print 'Packages = ', P.Packages
-                print 'Pcds = ', P.Pcds
+                    print(item.SourceFile)
+                print('LibraryClasses = ', P.LibraryClasses)
+                print('Protocols = ', P.Protocols)
+                print('Ppis = ', P.Ppis)
+                print('Guids = ', P.Guids)
+                print('Includes = ', P.Includes)
+                print('Packages = ', P.Packages)
+                print('Pcds = ', P.Pcds)
                 for item in P.Pcds.keys():
-                    print P.Pcds[item]
-                print 'BuildOptions = ', P.BuildOptions
-                print 'Depex = ', P.Depex
-                print ''
+                    print(P.Pcds[item])
+                print('BuildOptions = ', P.BuildOptions)
+                print('Depex = ', P.Depex)
+                print('')
             # End of Module
 
 ##
@@ -1659,12 +1660,12 @@ class WorkspaceBuild(object):
 # script.
 #
 if __name__ == '__main__':
-    print 'Start!', time.strftime('%H:%M:%S', time.localtime())
+    print('Start!', time.strftime('%H:%M:%S', time.localtime()))
     EdkLogger.Initialize()
     EdkLogger.SetLevel(EdkLogger.QUIET)
     
     W = os.getenv('WORKSPACE')
     Ewb = WorkspaceBuild('Nt32Pkg/Nt32Pkg.dsc', W)
     Ewb.GenBuildDatabase({('PcdDevicePathSupportDevicePathFromText', 'gEfiMdeModulePkgTokenSpaceGuid') : 'KKKKKKKKKKKKKKKKKKKKK'}, ['Test.Inf'])
-    print 'Done!', time.strftime('%H:%M:%S', time.localtime())
+    print('Done!', time.strftime('%H:%M:%S', time.localtime()))
     Ewb.ShowWorkspaceBuild()

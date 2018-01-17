@@ -14,6 +14,7 @@
 ##
 # Import Modules
 #
+from __future__ import print_function
 import Common.LongFilePathOs as os
 import EdkLogger
 import DataType
@@ -148,7 +149,7 @@ class TargetTxtClassObject(object):
             KeyList = Dict.keys()
             for Key in KeyList:
                 if Dict[Key] != '':
-                    print Key + ' = ' + str(Dict[Key])
+                    print(Key + ' = ' + str(Dict[Key]))
 
     ## Print the dictionary
     #
@@ -161,9 +162,9 @@ class TargetTxtClassObject(object):
         if type(List) == type([]):
             if len(List) > 0:
                 if Key.find(TAB_SPLIT) != -1:
-                    print "\n" + Key
+                    print("\n" + Key)
                     for Item in List:
-                        print Item
+                        print(Item)
 ## TargetTxtDict
 #
 # Load target.txt in input Conf dir
@@ -185,6 +186,6 @@ def TargetTxtDict(ConfDir):
 if __name__ == '__main__':
     pass
     Target = TargetTxtDict(os.getenv("WORKSPACE"))
-    print Target.TargetTxtDictionary[DataType.TAB_TAT_DEFINES_MAX_CONCURRENT_THREAD_NUMBER]
-    print Target.TargetTxtDictionary[DataType.TAB_TAT_DEFINES_TARGET]
-    print Target.TargetTxtDictionary
+    print(Target.TargetTxtDictionary[DataType.TAB_TAT_DEFINES_MAX_CONCURRENT_THREAD_NUMBER])
+    print(Target.TargetTxtDictionary[DataType.TAB_TAT_DEFINES_TARGET])
+    print(Target.TargetTxtDictionary)

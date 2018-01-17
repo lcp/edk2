@@ -819,11 +819,11 @@ class DscBuildData(PlatformBuildClassObject):
         if ValueList[Index] and PcdType not in [MODEL_PCD_FEATURE_FLAG, MODEL_PCD_FIXED_AT_BUILD]:
             try:
                 ValueList[Index] = ValueExpression(ValueList[Index], GlobalData.gPlatformPcds)(True)
-            except WrnExpression, Value:
+            except WrnExpression as Value:
                 ValueList[Index] = Value.result
-            except BadExpression, Value:
+            except BadExpression as Value:
                 EdkLogger.error('Parser', FORMAT_INVALID, Value, File=self.MetaFile, Line=self._LineIndex + 1)
-            except EvaluationException, Excpt:
+            except EvaluationException as Excpt:
                 if hasattr(Excpt, 'Pcd'):
                     if Excpt.Pcd in GlobalData.gPlatformOtherPcds:
                         EdkLogger.error('Parser', FORMAT_INVALID, "Cannot use this PCD (%s) in an expression as"
@@ -840,7 +840,7 @@ class DscBuildData(PlatformBuildClassObject):
             DatumType = self._DecPcds[PcdCName, TokenSpaceGuid].DatumType
             try:
                 ValueList[Index] = ValueExpressionEx(ValueList[Index], DatumType, self._GuidDict)(True)
-            except BadExpression, Value:
+            except BadExpression as Value:
                 EdkLogger.error('Parser', FORMAT_INVALID, Value, File=self.MetaFile, Line=LineNo,
                                 ExtraData="PCD [%s.%s] Value \"%s\" " % (TokenSpaceGuid, PcdCName, ValueList[Index]))
             Valid, ErrStr = CheckPcdDatum(self._DecPcds[PcdCName, TokenSpaceGuid].DatumType, ValueList[Index])

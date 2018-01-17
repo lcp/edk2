@@ -1190,7 +1190,7 @@ class FdfParser(object):
 #                pass
             
 
-        except Warning, X:
+        except Warning as X:
             self.__UndoToken()
             FileLineTuple = GetRealFileLine(self.FileName, self.CurrentLineNumber)
             X.message += '\nGot Token: \"%s\" from File %s\n' % (self.__Token, FileLineTuple[0]) + \
@@ -3659,7 +3659,7 @@ if __name__ == "__main__":
     import sys
     try:
         test_file = sys.argv[1]
-    except IndexError, v:
+    except IndexError as v:
         print "Usage: %s filename" % sys.argv[0]
         sys.exit(1)
 
@@ -3667,7 +3667,7 @@ if __name__ == "__main__":
     try:
         parser.ParseFile()
         parser.CycleReferenceCheck()
-    except Warning, X:
+    except Warning as X:
         print X.message
     else:
         print "Success!"

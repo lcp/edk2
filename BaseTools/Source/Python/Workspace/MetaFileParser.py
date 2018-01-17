@@ -1327,7 +1327,7 @@ class DscParser(MetaFileParser):
                 self._InSubsection = False
             try:
                 Processer[self._ItemType]()
-            except EvaluationException, Excpt:
+            except EvaluationException as Excpt:
                 # 
                 # Only catch expression evaluation error here. We need to report
                 # the precise number of line on which the error occurred
@@ -1349,7 +1349,7 @@ class DscParser(MetaFileParser):
                     EdkLogger.error('Parser', FORMAT_INVALID, "Invalid expression: %s" % str(Excpt),
                                     File=self._FileWithError, ExtraData=' '.join(self._ValueList),
                                     Line=self._LineIndex + 1)
-            except MacroException, Excpt:
+            except MacroException as Excpt:
                 EdkLogger.error('Parser', FORMAT_INVALID, str(Excpt),
                                 File=self._FileWithError, ExtraData=' '.join(self._ValueList),
                                 Line=self._LineIndex + 1)
@@ -1447,10 +1447,10 @@ class DscParser(MetaFileParser):
             Macros.update(GlobalData.gGlobalDefines)
             try:
                 Result = ValueExpression(self._ValueList[1], Macros)()
-            except SymbolNotFound, Exc:
+            except SymbolNotFound as Exc:
                 EdkLogger.debug(EdkLogger.DEBUG_5, str(Exc), self._ValueList[1])
                 Result = False
-            except WrnExpression, Excpt:
+            except WrnExpression as Excpt:
                 # 
                 # Catch expression evaluation warning here. We need to report
                 # the precise number of line and return the evaluation result
@@ -1591,7 +1591,7 @@ class DscParser(MetaFileParser):
         if PcdValue and "." not in self._ValueList[0]:
             try:
                 ValList[Index] = ValueExpression(PcdValue, self._Macros)(True)
-            except WrnExpression, Value:
+            except WrnExpression as Value:
                 ValList[Index] = Value.result
 
         if ValList[Index] == 'True':
@@ -1988,15 +1988,15 @@ class DecParser(MetaFileParser):
             if PcdValue:
                 try:
                     ValueList[0] = ValueExpression(PcdValue, self._AllPcdDict)(True)
-                except WrnExpression, Value:
+                except WrnExpression as Value:
                     ValueList[0] = Value.result
-                except BadExpression, Value:
+                except BadExpression as Value:
                     EdkLogger.error('Parser', FORMAT_INVALID, Value, File=self.MetaFile, Line=self._LineIndex + 1)
 
             if ValueList[0]:
                 try:
                     ValueList[0] = ValueExpressionEx(ValueList[0], ValueList[1], self._GuidDict)(True)
-                except BadExpression, Value:
+                except BadExpression as Value:
                     EdkLogger.error('Parser', FORMAT_INVALID, Value, ExtraData=self._CurrentLine, File=self.MetaFile, Line=self._LineIndex + 1)
             # check format of default value against the datum type
             IsValid, Cause = CheckPcdDatum(ValueList[1], ValueList[0])

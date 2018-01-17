@@ -431,7 +431,7 @@ class WorkspaceAutoGen(AutoGen):
                                     if pcdvalue.startswith('H'):
                                         try:
                                             pcdvalue = ValueExpressionEx(pcdvalue[1:], PcdDatumType, self._GuidDict)(True)
-                                        except BadExpression, Value:
+                                        except BadExpression as Value:
                                             if Value.result > 1:
                                                 EdkLogger.error('Parser', FORMAT_INVALID, 'PCD [%s.%s] Value "%s",  %s' %
                                                                 (TokenSpaceGuidCName, TokenCName, pcdvalue, Value))
@@ -448,7 +448,7 @@ class WorkspaceAutoGen(AutoGen):
                                             if pcdvalue.startswith('H'):
                                                 try:
                                                     pcdvalue = ValueExpressionEx(pcdvalue[1:], PcdDatumType, self._GuidDict)(True)
-                                                except BadExpression, Value:
+                                                except BadExpression as Value:
                                                     EdkLogger.error('Parser', FORMAT_INVALID, 'PCD [%s.%s] Value "%s", %s' %
                                                                     (TokenSpaceGuidCName, TokenCName, pcdvalue, Value))
                                                 pcdvalue = 'H' + pcdvalue
@@ -2469,9 +2469,9 @@ class PlatformAutoGen(AutoGen):
             if PcdValue:
                 try:
                     ToPcd.DefaultValue = ValueExpression(PcdValue)(True)
-                except WrnExpression, Value:
+                except WrnExpression as Value:
                     ToPcd.DefaultValue = Value.result
-                except BadExpression, Value:
+                except BadExpression as Value:
                     EdkLogger.error('Parser', FORMAT_INVALID, 'PCD [%s.%s] Value "%s", %s' %(ToPcd.TokenSpaceGuidCName, ToPcd.TokenCName, ToPcd.DefaultValue, Value),
                                     File=self.MetaFile)
             if ToPcd.DefaultValue:
@@ -2481,7 +2481,7 @@ class PlatformAutoGen(AutoGen):
                     _GuidDict.update(Guids)
                 try:
                     ToPcd.DefaultValue = ValueExpressionEx(ToPcd.DefaultValue, ToPcd.DatumType, _GuidDict)(True)
-                except BadExpression, Value:
+                except BadExpression as Value:
                     EdkLogger.error('Parser', FORMAT_INVALID, 'PCD [%s.%s] Value "%s", %s' %(ToPcd.TokenSpaceGuidCName, ToPcd.TokenCName, ToPcd.DefaultValue, Value),
                                         File=self.MetaFile)
 

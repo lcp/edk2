@@ -1411,7 +1411,7 @@ def Main():
     try:
         Option = GetOptions()
         build.main()
-    except Exception, e:
+    except Exception as e:
         print e
         return 1
 

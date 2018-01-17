@@ -231,7 +231,7 @@ class ValueExpression(object):
         }
         try:
             Val = eval(EvalStr, {}, Dict)
-        except Exception, Excpt:
+        except Exception as Excpt:
             raise BadExpression(str(Excpt))
 
         if Operator in ['and', 'or']:
@@ -350,7 +350,7 @@ class ValueExpression(object):
                 continue
             try:
                 Val = self.Eval(Op, Val, EvalFunc())
-            except WrnExpression, Warn:
+            except WrnExpression as Warn:
                 self._WarnExcept = Warn
                 Val = Warn.result
         return Val
@@ -389,7 +389,7 @@ class ValueExpression(object):
                 Op += ' ' + self._Token
             try:
                 Val = self.Eval(Op, Val, self._RelExpr())
-            except WrnExpression, Warn:
+            except WrnExpression as Warn:
                 self._WarnExcept = Warn
                 Val = Warn.result
         return Val
@@ -415,14 +415,14 @@ class ValueExpression(object):
             Val = self._UnaryExpr()
             try:
                 return self.Eval('not', Val)
-            except WrnExpression, Warn:
+            except WrnExpression as Warn:
                 self._WarnExcept = Warn
                 return Warn.result
         if self._IsOperator(["~"]):
             Val = self._UnaryExpr()
             try:
                 return self.Eval('~', Val)
-            except WrnExpression, Warn:
+            except WrnExpression as Warn:
                 self._WarnExcept = Warn
                 return Warn.result
         return self._IdenExpr()
@@ -744,7 +744,7 @@ class ValueExpressionEx(ValueExpression):
             elif self.PcdType in ['UINT8', 'UINT16', 'UINT32', 'UINT64', 'BOOLEAN'] and (PcdValue.startswith("'") or \
                       PcdValue.startswith('"') or PcdValue.startswith("L'") or PcdValue.startswith('L"') or PcdValue.startswith('{')):
                 raise BadExpression
-        except WrnExpression, Value:
+        except WrnExpression as Value:
             PcdValue = Value.result
         except BadExpression:
             if self.PcdType in ['UINT8', 'UINT16', 'UINT32', 'UINT64', 'BOOLEAN']:
@@ -904,8 +904,8 @@ if __name__ == '__main__':
         try:
             print ValueExpression(input)(True)
             print ValueExpression(input)(False)
-        except WrnExpression, Ex:
+        except WrnExpression as Ex:
             print Ex.result
             print str(Ex)
-        except Exception, Ex:
+        except Exception as Ex:
             print str(Ex)

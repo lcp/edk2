@@ -827,11 +827,11 @@ class DscBuildData(PlatformBuildClassObject):
             DatumType = self._DecPcds[PcdCName, TokenSpaceGuid].DatumType
             try:
                 ValueList[Index] = ValueExpressionEx(ValueList[Index], DatumType, self._GuidDict)(True)
-            except BadExpression, Value:
+            except BadExpression as Value:
                 EdkLogger.error('Parser', FORMAT_INVALID, Value, File=self.MetaFile, Line=LineNo,
                                 ExtraData="PCD [%s.%s] Value \"%s\" " % (
                                 TokenSpaceGuid, PcdCName, ValueList[Index]))
-            except EvaluationException, Excpt:
+            except EvaluationException as Excpt:
                 if hasattr(Excpt, 'Pcd'):
                     if Excpt.Pcd in GlobalData.gPlatformOtherPcds:
                         EdkLogger.error('Parser', FORMAT_INVALID, "Cannot use this PCD (%s) in an expression as"
@@ -998,7 +998,7 @@ class DscBuildData(PlatformBuildClassObject):
                                 if pcdvalue.startswith('H'):
                                     try:
                                         pcdvalue = ValueExpressionEx(pcdvalue[1:], PcdDatumType, self._GuidDict)(True)
-                                    except BadExpression, Value:
+                                    except BadExpression as Value:
                                         if Value.result > 1:
                                             EdkLogger.error('Parser', FORMAT_INVALID, 'PCD [%s.%s] Value "%s",  %s' %
                                                             (TokenSpaceGuidCName, TokenCName, pcdvalue, Value))
@@ -1015,7 +1015,7 @@ class DscBuildData(PlatformBuildClassObject):
                                         if pcdvalue.startswith('H'):
                                             try:
                                                 pcdvalue = ValueExpressionEx(pcdvalue[1:], PcdDatumType, self._GuidDict)(True)
-                                            except BadExpression, Value:
+                                            except BadExpression as Value:
                                                 EdkLogger.error('Parser', FORMAT_INVALID, 'PCD [%s.%s] Value "%s", %s' %
                                                                 (TokenSpaceGuidCName, TokenCName, pcdvalue, Value))
                                             pcdvalue = 'H' + pcdvalue

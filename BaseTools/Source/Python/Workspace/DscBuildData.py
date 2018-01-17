@@ -17,6 +17,7 @@
 #  This class is used to retrieve information stored in database and convert them
 # into PlatformBuildClassObject form for easier use for AutoGen.
 #
+from __future__ import print_function
 from Common.String import *
 from Common.DataType import *
 from Common.Misc import *
@@ -909,9 +910,9 @@ class DscBuildData(PlatformBuildClassObject):
             for skuid in pcdobj.SkuInfoList:
                 if pcdobj.Type in (self._PCD_TYPE_STRING_[MODEL_PCD_DYNAMIC_HII],self._PCD_TYPE_STRING_[MODEL_PCD_DYNAMIC_EX_HII]):
                     for storename in pcdobj.SkuInfoList[skuid].DefaultStoreDict:
-                        print "PcdCName: %s, SkuName: %s, StoreName: %s, Value: %s" % (".".join((pcdobj.TokenSpaceGuidCName, pcdobj.TokenCName)), skuid,storename,str(pcdobj.SkuInfoList[skuid].DefaultStoreDict[storename]))
+                        print("PcdCName: %s, SkuName: %s, StoreName: %s, Value: %s" % (".".join((pcdobj.TokenSpaceGuidCName, pcdobj.TokenCName)), skuid,storename,str(pcdobj.SkuInfoList[skuid].DefaultStoreDict[storename])))
                 else:
-                    print "PcdCName: %s, SkuName: %s, Value: %s" % (".".join((pcdobj.TokenSpaceGuidCName, pcdobj.TokenCName)), skuid,str(pcdobj.SkuInfoList[skuid].DefaultValue))
+                    print("PcdCName: %s, SkuName: %s, Value: %s" % (".".join((pcdobj.TokenSpaceGuidCName, pcdobj.TokenCName)), skuid,str(pcdobj.SkuInfoList[skuid].DefaultValue)))
     ## Retrieve [BuildOptions]
     def _GetBuildOptions(self):
         if self._BuildOptions == None:
@@ -1067,7 +1068,7 @@ class DscBuildData(PlatformBuildClassObject):
             for (skuname,StoreName,PcdGuid,PcdName,PcdValue) in Str_Pcd_Values:
                 str_pcd_obj = S_pcd_set.get((PcdName, PcdGuid))
                 if str_pcd_obj is None:
-                    print PcdName, PcdGuid
+                    print(PcdName, PcdGuid)
                     raise
                 if str_pcd_obj.Type in [self._PCD_TYPE_STRING_[MODEL_PCD_DYNAMIC_HII],
                                         self._PCD_TYPE_STRING_[MODEL_PCD_DYNAMIC_EX_HII]]:
@@ -1244,10 +1245,10 @@ class DscBuildData(PlatformBuildClassObject):
         if Value[0] == '{' and Value[-1] == '}':
             return True
         if Value.startswith("L'") and Value.endswith("'") and len(list(Value[2:-1])) > 1:
-            print 'foo = ', list(Value[2:-1])
+            print('foo = ', list(Value[2:-1]))
             return True
         if Value[0] == "'" and Value[-1] == "'" and len(list(Value[1:-1])) > 1:
-            print 'bar = ', list(Value[1:-1])
+            print('bar = ', list(Value[1:-1]))
             return True
         return False
 
@@ -1255,11 +1256,11 @@ class DscBuildData(PlatformBuildClassObject):
         try:
             Process = subprocess.Popen(Command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
         except:
-            print 'ERROR: Can not execute command:', Command
+            print('ERROR: Can not execute command:', Command)
             sys.exit(1)
         Result = Process.communicate()
         if Process.returncode <> 0:
-            print 'ERROR: Can not collect output from command:', Command
+            print('ERROR: Can not collect output from command:', Command)
         return Result[0], Result[1]
 
     def IntToCString(self, Value, ValueSize):
@@ -1376,7 +1377,7 @@ class DscBuildData(PlatformBuildClassObject):
                     try:
                         Value, ValueSize = ParseFieldValue (FieldList[FieldName][0])
                     except Exception:
-                        print FieldList[FieldName][0]
+                        print(FieldList[FieldName][0])
                     if isinstance(Value, str):
                         CApp = CApp + '  Pcd->%s = %s; // From %s Line %d Value %s\n' % (FieldName, Value, FieldList[FieldName][1], FieldList[FieldName][2], FieldList[FieldName][0])
                     elif IsArray:
@@ -1414,7 +1415,7 @@ class DscBuildData(PlatformBuildClassObject):
                         try:
                             Value, ValueSize = ParseFieldValue (FieldList[FieldName][0])
                         except Exception:
-                            print FieldList[FieldName][0]
+                            print(FieldList[FieldName][0])
                         if isinstance(Value, str):
                             CApp = CApp + '  Pcd->%s = %s; // From %s Line %d Value %s\n' % (FieldName, Value, FieldList[FieldName][1], FieldList[FieldName][2], FieldList[FieldName][0])
                         elif IsArray:

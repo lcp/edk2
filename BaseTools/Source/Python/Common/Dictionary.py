@@ -14,6 +14,7 @@
 ##
 # Import Modules
 #
+from __future__ import print_function
 import EdkLogger
 from DataType import *
 from Common.LongFilePathSupport import OpenLongFilePath as open
@@ -58,7 +59,7 @@ def printDict(Dict):
         KeyList = Dict.keys()
         for Key in KeyList:
             if Dict[Key] != '':
-                print Key + ' = ' + str(Dict[Key])
+                print(Key + ' = ' + str(Dict[Key]))
 
 ## Print the dictionary
 #
@@ -71,6 +72,6 @@ def printList(Key, List):
     if type(List) == type([]):
         if len(List) > 0:
             if Key.find(TAB_SPLIT) != -1:
-                print "\n" + Key
+                print("\n" + Key)
                 for Item in List:
-                    print Item
+                    print(Item)

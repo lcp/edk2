@@ -13,6 +13,7 @@
 
 ## Import Modules
 #
+from __future__ import print_function
 import Common.LongFilePathOs as os
 import re
 import sys
@@ -1190,17 +1191,17 @@ class PeImage:
         self.Machine, self.NumberOfSections, self.SizeOfOptionalHeader = \
             self._FileHeader.unpack_from(self._PeImageBuf, self.Offset + FileHeaderOffset)
 
-        print "Machine=%x NumberOfSections=%x SizeOfOptionalHeader=%x" % (self.Machine, self.NumberOfSections, self.SizeOfOptionalHeader)
+        print("Machine=%x NumberOfSections=%x SizeOfOptionalHeader=%x" % (self.Machine, self.NumberOfSections, self.SizeOfOptionalHeader))
         # optional header follows the FILE header
         OptionalHeaderOffset = FileHeaderOffset + struct.calcsize(self._FileHeaderFormat)
         Magic, self.SizeOfImage, SizeOfHeaders, self.Checksum, NumberOfRvaAndSizes = \
             self._OptionalHeader32.unpack_from(self._PeImageBuf, self.Offset + OptionalHeaderOffset)
-        print "Magic=%x SizeOfImage=%x SizeOfHeaders=%x, Checksum=%x, NumberOfRvaAndSizes=%x" % (Magic, self.SizeOfImage, SizeOfHeaders, self.Checksum, NumberOfRvaAndSizes)
+        print("Magic=%x SizeOfImage=%x SizeOfHeaders=%x, Checksum=%x, NumberOfRvaAndSizes=%x" % (Magic, self.SizeOfImage, SizeOfHeaders, self.Checksum, NumberOfRvaAndSizes))
 
         PeImageSectionTableOffset = OptionalHeaderOffset + self.SizeOfOptionalHeader
         PeSections = PeSectionTable(self._PeImageBuf, self.Offset + PeImageSectionTableOffset, self.NumberOfSections)
 
-        print "%x" % PeSections.GetFileAddress(0x3920)
+        print("%x" % PeSections.GetFileAddress(0x3920))
 
 ## PeSectionTable() class
 #
@@ -1215,7 +1216,7 @@ class PeSectionTable:
             SectionHeader = PeSectionHeader(Buf, SectionHeaderOffset)
             self._SectionList.append(SectionHeader)
             SectionHeaderOffset += len(SectionHeader)
-            print SectionHeader
+            print(SectionHeader)
 
     def GetFileAddress(self, Rva):
         for PeSection in self._SectionList:
@@ -1412,7 +1413,7 @@ def Main():
         Option = GetOptions()
         build.main()
     except Exception as e:
-        print e
+        print(e)
         return 1
 
     return 0
@@ -1435,7 +1436,7 @@ if __name__ == '__main__':
             fv = FirmwareVolume("FVRECOVERY")
             fv.frombuffer(buf, 0, len(buf))
             #fv.Dispatch(None)
-            print fv
+            print(fv)
         elif FilePath.endswith(".efi"):
             fd = open(FilePath, 'rb')
             buf = array('B')

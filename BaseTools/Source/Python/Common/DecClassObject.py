@@ -14,6 +14,7 @@
 ##
 # Import Modules
 #
+from __future__ import print_function
 import Common.LongFilePathOs as os
 from String import *
 from DataType import *
@@ -517,31 +518,31 @@ class Dec(DecObject):
     def ShowPackage(self):
         M = self.Package
         for Arch in M.Header.keys():
-            print '\nArch =', Arch
-            print 'Filename =', M.Header[Arch].FileName
-            print 'FullPath =', M.Header[Arch].FullPath
-            print 'BaseName =', M.Header[Arch].Name
-            print 'Guid =', M.Header[Arch].Guid
-            print 'Version =', M.Header[Arch].Version
-            print 'DecSpecification =', M.Header[Arch].DecSpecification
-        print '\nIncludes =', M.Includes
+            print('\nArch =', Arch)
+            print('Filename =', M.Header[Arch].FileName)
+            print('FullPath =', M.Header[Arch].FullPath)
+            print('BaseName =', M.Header[Arch].Name)
+            print('Guid =', M.Header[Arch].Guid)
+            print('Version =', M.Header[Arch].Version)
+            print('DecSpecification =', M.Header[Arch].DecSpecification)
+        print('\nIncludes =', M.Includes)
         for Item in M.Includes:
-            print Item.FilePath, Item.SupArchList
-        print '\nGuids =', M.GuidDeclarations
+            print(Item.FilePath, Item.SupArchList)
+        print('\nGuids =', M.GuidDeclarations)
         for Item in M.GuidDeclarations:
-            print Item.CName, Item.Guid, Item.SupArchList
-        print '\nProtocols =', M.ProtocolDeclarations
+            print(Item.CName, Item.Guid, Item.SupArchList)
+        print('\nProtocols =', M.ProtocolDeclarations)
         for Item in M.ProtocolDeclarations:
-            print Item.CName, Item.Guid, Item.SupArchList
-        print '\nPpis =', M.PpiDeclarations
+            print(Item.CName, Item.Guid, Item.SupArchList)
+        print('\nPpis =', M.PpiDeclarations)
         for Item in M.PpiDeclarations:
-            print Item.CName, Item.Guid, Item.SupArchList
-        print '\nLibraryClasses =', M.LibraryClassDeclarations
+            print(Item.CName, Item.Guid, Item.SupArchList)
+        print('\nLibraryClasses =', M.LibraryClassDeclarations)
         for Item in M.LibraryClassDeclarations:
-            print Item.LibraryClass, Item.RecommendedInstance, Item.SupModuleList, Item.SupArchList
-        print '\nPcds =', M.PcdDeclarations
+            print(Item.LibraryClass, Item.RecommendedInstance, Item.SupModuleList, Item.SupArchList)
+        print('\nPcds =', M.PcdDeclarations)
         for Item in M.PcdDeclarations:
-            print 'CName=', Item.CName, 'TokenSpaceGuidCName=', Item.TokenSpaceGuidCName, 'DefaultValue=', Item.DefaultValue, 'ItemType=', Item.ItemType, 'Token=', Item.Token, 'DatumType=', Item.DatumType, Item.SupArchList
+            print('CName=', Item.CName, 'TokenSpaceGuidCName=', Item.TokenSpaceGuidCName, 'DefaultValue=', Item.DefaultValue, 'ItemType=', Item.ItemType, 'Token=', Item.Token, 'DatumType=', Item.DatumType, Item.SupArchList)
 
 ##
 #

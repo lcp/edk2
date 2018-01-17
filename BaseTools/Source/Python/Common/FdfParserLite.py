@@ -15,6 +15,7 @@
 ##
 # Import Modules
 #
+from __future__ import print_function
 import re
 import Common.LongFilePathOs as os
 
@@ -1269,8 +1270,8 @@ class FdfParser(object):
         self.__UndoToken()
         if not self.__IsToken("[FD.", True):
             FileLineTuple = GetRealFileLine(self.FileName, self.CurrentLineNumber)
-            print 'Parsing String: %s in File %s, At line: %d, Offset Within Line: %d' \
-                    % (self.Profile.FileLinesList[self.CurrentLineNumber - 1][self.CurrentOffsetWithinLine :], FileLineTuple[0], FileLineTuple[1], self.CurrentOffsetWithinLine)
+            print('Parsing String: %s in File %s, At line: %d, Offset Within Line: %d' \
+                    % (self.Profile.FileLinesList[self.CurrentLineNumber - 1][self.CurrentOffsetWithinLine :], FileLineTuple[0], FileLineTuple[1], self.CurrentOffsetWithinLine))
             raise Warning("expected [FD.] At Line ", self.FileName, self.CurrentLineNumber)
         
         FdName = self.__GetUiName()
@@ -1837,8 +1838,8 @@ class FdfParser(object):
         self.__UndoToken()
         if not self.__IsToken("[FV.", True):
             FileLineTuple = GetRealFileLine(self.FileName, self.CurrentLineNumber)
-            print 'Parsing String: %s in File %s, At line: %d, Offset Within Line: %d' \
-                    % (self.Profile.FileLinesList[self.CurrentLineNumber - 1][self.CurrentOffsetWithinLine :], FileLineTuple[0], FileLineTuple[1], self.CurrentOffsetWithinLine)
+            print('Parsing String: %s in File %s, At line: %d, Offset Within Line: %d' \
+                    % (self.Profile.FileLinesList[self.CurrentLineNumber - 1][self.CurrentOffsetWithinLine :], FileLineTuple[0], FileLineTuple[1], self.CurrentOffsetWithinLine))
             raise Warning("Unknown Keyword At Line ", self.FileName, self.CurrentLineNumber)
         
         FvName = self.__GetUiName()
@@ -2643,8 +2644,8 @@ class FdfParser(object):
         self.__UndoToken()
         if not self.__IsToken("[CAPSULE.", True):
             FileLineTuple = GetRealFileLine(self.FileName, self.CurrentLineNumber)
-            print 'Parsing String: %s in File %s, At line: %d, Offset Within Line: %d' \
-                    % (self.Profile.FileLinesList[self.CurrentLineNumber - 1][self.CurrentOffsetWithinLine :], FileLineTuple[0], FileLineTuple[1], self.CurrentOffsetWithinLine)
+            print('Parsing String: %s in File %s, At line: %d, Offset Within Line: %d' \
+                    % (self.Profile.FileLinesList[self.CurrentLineNumber - 1][self.CurrentOffsetWithinLine :], FileLineTuple[0], FileLineTuple[1], self.CurrentOffsetWithinLine))
             raise Warning("expected [Capsule.] At Line ", self.FileName, self.CurrentLineNumber)        
             
         CapsuleObj = CommonDataClass.FdfClass.CapsuleClassObject()
@@ -2766,8 +2767,8 @@ class FdfParser(object):
         self.__UndoToken()
         if not self.__IsToken("[Rule.", True):
             FileLineTuple = GetRealFileLine(self.FileName, self.CurrentLineNumber)
-            print 'Parsing String: %s in File %s, At line: %d, Offset Within Line: %d' \
-                    % (self.Profile.FileLinesList[self.CurrentLineNumber - 1][self.CurrentOffsetWithinLine :], FileLineTuple[0], FileLineTuple[1], self.CurrentOffsetWithinLine)
+            print('Parsing String: %s in File %s, At line: %d, Offset Within Line: %d' \
+                    % (self.Profile.FileLinesList[self.CurrentLineNumber - 1][self.CurrentOffsetWithinLine :], FileLineTuple[0], FileLineTuple[1], self.CurrentOffsetWithinLine))
             raise Warning("expected [Rule.] At Line ", self.FileName, self.CurrentLineNumber)
 
         if not self.__SkipToToken("."):
@@ -3357,8 +3358,8 @@ class FdfParser(object):
         self.__UndoToken()
         if not self.__IsToken("[VTF.", True):
             FileLineTuple = GetRealFileLine(self.FileName, self.CurrentLineNumber)
-            print 'Parsing String: %s in File %s, At line: %d, Offset Within Line: %d' \
-                    % (self.Profile.FileLinesList[self.CurrentLineNumber - 1][self.CurrentOffsetWithinLine :], FileLineTuple[0], FileLineTuple[1], self.CurrentOffsetWithinLine)
+            print('Parsing String: %s in File %s, At line: %d, Offset Within Line: %d' \
+                    % (self.Profile.FileLinesList[self.CurrentLineNumber - 1][self.CurrentOffsetWithinLine :], FileLineTuple[0], FileLineTuple[1], self.CurrentOffsetWithinLine))
             raise Warning("expected [VTF.] At Line ", self.FileName, self.CurrentLineNumber)
 
         if not self.__SkipToToken("."):
@@ -3650,7 +3651,7 @@ class FdfParser(object):
                             raise Warning(LogStr)
         
         except Warning:
-            print LogStr
+            print(LogStr)
         
         finally:
             return CycleRefExists
@@ -3660,7 +3661,7 @@ if __name__ == "__main__":
     try:
         test_file = sys.argv[1]
     except IndexError as v:
-        print "Usage: %s filename" % sys.argv[0]
+        print("Usage: %s filename" % sys.argv[0])
         sys.exit(1)
 
     parser = FdfParser(test_file)
@@ -3668,7 +3669,7 @@ if __name__ == "__main__":
         parser.ParseFile()
         parser.CycleReferenceCheck()
     except Warning as X:
-        print X.message
+        print(X.message)
     else:
-        print "Success!"
+        print("Success!")
 

@@ -1,3 +1,4 @@
+from __future__ import print_function
 # $ANTLR 3.0.1 C.g 2010-02-23 09:58:53
 
 from antlr3 import *
@@ -109,7 +110,7 @@ class CParser(Parser):
               
             
     def printTokenInfo(self, line, offset, tokenText):
-    	print str(line)+ ',' + str(offset) + ':' + str(tokenText)
+    	print(str(line)+ ',' + str(offset) + ':' + str(tokenText))
         
     def StorePredicateExpression(self, StartLine, StartOffset, EndLine, EndOffset, Text):
     	PredExp = CodeFragment.PredicateExpression(Text, (StartLine, StartOffset), (EndLine, EndOffset))

@@ -14,6 +14,7 @@
 ##
 # Import Modules
 #
+from __future__ import print_function
 import Common.LongFilePathOs as os, sys, time
 from DataType import *
 from Common.LongFilePathSupport import OpenLongFilePath as open
@@ -39,7 +40,7 @@ class EdkIIWorkspace:
         # Check environment valiable 'WORKSPACE'
         #
         if os.environ.get('WORKSPACE') == None:
-            print 'ERROR: WORKSPACE not defined.    Please run EdkSetup from the EDK II install directory.'
+            print('ERROR: WORKSPACE not defined.    Please run EdkSetup from the EDK II install directory.')
             return False
 
         self.CurrentWorkingDir = os.getcwd()
@@ -76,18 +77,18 @@ class EdkIIWorkspace:
         if self.PrintRunTime:
             Seconds = int(time.time() - self.StartTime)
             if Seconds < 60:
-                print 'Run Time: %d seconds' % (Seconds)
+                print('Run Time: %d seconds' % (Seconds))
             else:
                 Minutes = Seconds / 60
                 Seconds = Seconds % 60
                 if Minutes < 60:
-                    print 'Run Time: %d minutes %d seconds' % (Minutes, Seconds)
+                    print('Run Time: %d minutes %d seconds' % (Minutes, Seconds))
                 else:
                     Hours = Minutes / 60
                     Minutes = Minutes % 60
-                    print 'Run Time: %d hours %d minutes %d seconds' % (Hours, Minutes, Seconds)
+                    print('Run Time: %d hours %d minutes %d seconds' % (Hours, Minutes, Seconds))
         if self.RunStatus != '':
-            print self.RunStatus
+            print(self.RunStatus)
 
     ## Convert to a workspace relative filename
     #
@@ -136,7 +137,7 @@ class EdkIIWorkspace:
     #
     def XmlParseFile (self, FileName):
         if self.Verbose:
-            print FileName
+            print(FileName)
         return XmlParseFile (self.WorkspaceFile(FileName))
 
     ## Convert a XML section
@@ -150,7 +151,7 @@ class EdkIIWorkspace:
     #
     def XmlParseFileSection (self, FileName, SectionTag):
         if self.Verbose:
-            print FileName
+            print(FileName)
         return XmlParseFileSection (self.WorkspaceFile(FileName), SectionTag)
 
     ## Save a XML file
@@ -164,7 +165,7 @@ class EdkIIWorkspace:
     #
     def XmlSaveFile (self, Dom, FileName):
         if self.Verbose:
-            print FileName
+            print(FileName)
         return XmlSaveFile (Dom, self.WorkspaceFile(FileName))
 
     ## Convert Text File To Dictionary
@@ -182,7 +183,7 @@ class EdkIIWorkspace:
     #
     def ConvertTextFileToDictionary(self, FileName, Dictionary, CommentCharacter, KeySplitCharacter, ValueSplitFlag, ValueSplitCharacter):
         if self.Verbose:
-            print FileName
+            print(FileName)
         return ConvertTextFileToDictionary(self.WorkspaceFile(FileName), Dictionary, CommentCharacter, KeySplitCharacter, ValueSplitFlag, ValueSplitCharacter)
 
     ## Convert Dictionary To Text File
@@ -200,7 +201,7 @@ class EdkIIWorkspace:
     #
     def ConvertDictionaryToTextFile(self, FileName, Dictionary, CommentCharacter, KeySplitCharacter, ValueSplitFlag, ValueSplitCharacter):
         if self.Verbose:
-            print FileName
+            print(FileName)
         return ConvertDictionaryToTextFile(self.WorkspaceFile(FileName), Dictionary, CommentCharacter, KeySplitCharacter, ValueSplitFlag, ValueSplitCharacter)
 
 ## Convert Text File To Dictionary

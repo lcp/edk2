@@ -341,7 +341,7 @@ class FV (FvClassObject):
             if len(self.FvExtEntryType) > 0 or self.UsedSizeEnable:
                 GenFdsGlobalVariable.ErrorLogger("FV Extension Header Entries declared for %s with no FvNameGuid declaration." % (self.UiFvName))
         
-        if self.FvNameGuid <> None and self.FvNameGuid <> '':
+        if self.FvNameGuid != None and self.FvNameGuid != '':
             TotalSize = 16 + 4
             Buffer = ''
             if self.UsedSizeEnable:

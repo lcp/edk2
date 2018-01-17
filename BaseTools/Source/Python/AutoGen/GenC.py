@@ -1521,7 +1521,7 @@ def CreateModuleEntryPointCode(Info, AutoGenC, AutoGenH):
     }
 
     if Info.ModuleType in ['PEI_CORE', 'DXE_CORE', 'SMM_CORE', 'MM_CORE_STANDALONE']:
-        if Info.SourceFileList <> None and Info.SourceFileList <> []:
+        if Info.SourceFileList != None and Info.SourceFileList != []:
           if NumEntryPoints != 1:
               EdkLogger.error(
                   "build",
@@ -1683,7 +1683,7 @@ def CreatePcdCode(Info, AutoGenC, AutoGenH):
     AutoGenH.Append("\n// Definition of SkuId Array\n")
     AutoGenH.Append("extern UINT64 _gPcd_SkuId_Array[];\n")
     # Add extern declarations to AutoGen.h if one or more Token Space GUIDs were found
-    if TokenSpaceList <> []:            
+    if TokenSpaceList != []:
         AutoGenH.Append("\n// Definition of PCD Token Space GUIDs used in this module\n\n")
         if Info.ModuleType in ["USER_DEFINED", "BASE"]:
             GuidType = "GUID"

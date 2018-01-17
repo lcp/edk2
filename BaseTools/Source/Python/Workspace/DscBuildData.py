@@ -1259,7 +1259,7 @@ class DscBuildData(PlatformBuildClassObject):
             print('ERROR: Can not execute command:', Command)
             sys.exit(1)
         Result = Process.communicate()
-        if Process.returncode <> 0:
+        if Process.returncode != 0:
             print('ERROR: Can not collect output from command:', Command)
         return Result[0], Result[1]
 

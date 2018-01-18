@@ -179,7 +179,6 @@ class ValueExpression(object):
                 Oprand2 = IntToStr(Oprand2)
         TypeDict = {
             type(0)  : 0,
-            type(0L) : 0,
             type('') : 1,
             type(True) : 2
         }
@@ -795,7 +794,7 @@ class ValueExpressionEx(ValueExpression):
                     raise BadExpression('Type %s PCD Value Size is Larger than 8 byte' % self.PcdType)
             else:
                 try:
-                    TmpValue = long(PcdValue)
+                    TmpValue = int(PcdValue)
                     TmpList = []
                     if TmpValue.bit_length() == 0:
                         PcdValue = '{0x00}'
@@ -825,7 +824,7 @@ class ValueExpressionEx(ValueExpression):
                         else:
                             ListItem = PcdValue.split(',')
 
-                        if type(ListItem) == type(0) or type(ListItem) == type(0L):
+                        if type(ListItem) == type(0):
                             for Index in range(0, Size):
                                 ValueStr += '0x%02X' % (int(ListItem) & 255)
                                 ListItem >>= 8

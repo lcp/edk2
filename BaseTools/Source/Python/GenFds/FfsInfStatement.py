@@ -429,7 +429,7 @@ class FfsInfStatement(FfsInfStatementClassObject):
 
         self.__InfParse__(Dict)
         Arch = self.GetCurrentArch()
-        SrcFile = mws.join( GenFdsGlobalVariable.WorkSpaceDir , self.InfFileName);
+        SrcFile = mws.join( GenFdsGlobalVariable.WorkSpaceDir, self.InfFileName);
         DestFile = os.path.join( self.OutputPath, self.ModuleGuid + '.ffs')
         
         SrcFileDir = "."
@@ -675,13 +675,13 @@ class FfsInfStatement(FfsInfStatementClassObject):
             Arch = self.CurrentArch
 
         OutputPath = os.path.join(GenFdsGlobalVariable.OutputDirDict[Arch],
-                                  Arch ,
+                                  Arch,
                                   ModulePath,
                                   FileName,
                                   'OUTPUT'
                                   )
         DebugPath = os.path.join(GenFdsGlobalVariable.OutputDirDict[Arch],
-                                  Arch ,
+                                  Arch,
                                   ModulePath,
                                   FileName,
                                   'DEBUG'
@@ -943,9 +943,9 @@ class FfsInfStatement(FfsInfStatementClassObject):
                 Sect.FvParentAddr = FvParentAddr
             
             if Rule.KeyStringList != []:
-                SectList, Align = Sect.GenSection(self.OutputPath , self.ModuleGuid, SecIndex, Rule.KeyStringList, self, IsMakefile = IsMakefile)
+                SectList, Align = Sect.GenSection(self.OutputPath, self.ModuleGuid, SecIndex, Rule.KeyStringList, self, IsMakefile = IsMakefile)
             else :
-                SectList, Align = Sect.GenSection(self.OutputPath , self.ModuleGuid, SecIndex, self.KeyStringList, self, IsMakefile = IsMakefile)
+                SectList, Align = Sect.GenSection(self.OutputPath, self.ModuleGuid, SecIndex, self.KeyStringList, self, IsMakefile = IsMakefile)
             
             if not HasGeneratedFlag:
                 UniVfrOffsetFileSection = ""    
@@ -1123,7 +1123,7 @@ class FfsInfStatement(FfsInfStatementClassObject):
         try :
             SaveFileOnChange(UniVfrOffsetFileName, fStringIO.getvalue())
         except:
-            EdkLogger.error("GenFds", FILE_WRITE_FAILURE, "Write data to file %s failed, please check whether the file been locked or using by other applications." %UniVfrOffsetFileName,None)
+            EdkLogger.error("GenFds", FILE_WRITE_FAILURE, "Write data to file %s failed, please check whether the file been locked or using by other applications." %UniVfrOffsetFileName, None)
         
         fStringIO.close ()
 

@@ -365,16 +365,16 @@ class DecBuildData(PackageBuildClassObject):
 
     def ProcessStructurePcd(self, StructurePcdRawDataSet):
         s_pcd_set = dict()
-        for s_pcd,LineNo in StructurePcdRawDataSet:
+        for s_pcd, LineNo in StructurePcdRawDataSet:
             if s_pcd.TokenSpaceGuidCName not in s_pcd_set:
                 s_pcd_set[s_pcd.TokenSpaceGuidCName] = []
-            s_pcd_set[s_pcd.TokenSpaceGuidCName].append((s_pcd,LineNo))
+            s_pcd_set[s_pcd.TokenSpaceGuidCName].append((s_pcd, LineNo))
 
         str_pcd_set = []
         for pcdname in s_pcd_set:
             dep_pkgs = []
             struct_pcd = StructurePcd()
-            for item,LineNo in s_pcd_set[pcdname]:
+            for item, LineNo in s_pcd_set[pcdname]:
                 if "<HeaderFiles>" in item.TokenCName:
                     struct_pcd.StructuredPcdIncludeFile = item.DefaultValue
                 elif "<Packages>" in item.TokenCName:
@@ -384,7 +384,7 @@ class DecBuildData(PackageBuildClassObject):
                     struct_pcd.TokenValue = struct_pcd.TokenValue.strip("{").strip()
                     struct_pcd.TokenSpaceGuidCName, struct_pcd.TokenCName = pcdname.split(".")
                 else:
-                    struct_pcd.AddDefaultValue(item.TokenCName, item.DefaultValue,self.MetaFile.File,LineNo)
+                    struct_pcd.AddDefaultValue(item.TokenCName, item.DefaultValue, self.MetaFile.File, LineNo)
 
             struct_pcd.PackageDecs = dep_pkgs
 
@@ -407,7 +407,7 @@ class DecBuildData(PackageBuildClassObject):
         StrPcdSet = []
         RecordList = self._RawData[Type, self._Arch]
         for TokenSpaceGuid, PcdCName, Setting, Arch, PrivateFlag, Dummy1, Dummy2 in RecordList:
-            PcdDict[Arch, PcdCName, TokenSpaceGuid] = (Setting,Dummy2)
+            PcdDict[Arch, PcdCName, TokenSpaceGuid] = (Setting, Dummy2)
             if not (PcdCName, TokenSpaceGuid) in PcdSet:
                 PcdSet.append((PcdCName, TokenSpaceGuid))
 
@@ -416,7 +416,7 @@ class DecBuildData(PackageBuildClassObject):
             # limit the ARCH to self._Arch, if no self._Arch found, tdict
             # will automatically turn to 'common' ARCH and try again
             #
-            Setting,LineNo = PcdDict[self._Arch, PcdCName, TokenSpaceGuid]
+            Setting, LineNo = PcdDict[self._Arch, PcdCName, TokenSpaceGuid]
             if Setting == None:
                 continue
 
@@ -438,7 +438,7 @@ class DecBuildData(PackageBuildClassObject):
                                         list(expressions)
                                         )
             if "." in TokenSpaceGuid:
-                StrPcdSet.append((PcdObj,LineNo))
+                StrPcdSet.append((PcdObj, LineNo))
             else:
                 Pcds[PcdCName, TokenSpaceGuid, self._PCD_TYPE_STRING_[Type]] = PcdObj
 

@@ -1307,7 +1307,7 @@ class Dsc(DscObject):
                 # Parse '!else'
                 #
                 if LineValue.upper().find(TAB_ELSE.upper()) > -1:
-                    Key = IfDefList[-1][0].split(' ' , 1)[0].strip()
+                    Key = IfDefList[-1][0].split(' ', 1)[0].strip()
                     self.InsertConditionalStatement(Filename, FileID, Model, IfDefList, StartLine, Arch)
                     IfDefList.append((Key, StartLine, MODEL_META_DATA_CONDITIONAL_STATEMENT_ELSE))
                     continue

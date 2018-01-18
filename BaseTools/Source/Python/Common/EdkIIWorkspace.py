@@ -114,7 +114,7 @@ class EdkIIWorkspace:
     # @retval string  The full path filename
     #
     def WorkspaceFile(self, FileName):
-        return os.path.realpath(mws.join(self.WorkspaceDir,FileName))
+        return os.path.realpath(mws.join(self.WorkspaceDir, FileName))
 
     ## Convert to a real path filename
     #

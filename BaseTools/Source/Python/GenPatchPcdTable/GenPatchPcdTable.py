@@ -109,7 +109,7 @@ def _parseForGCC(lines, efifilepath):
                     PcdName = m.groups(0)[0]
                     m = re.match('^([\da-fA-Fx]+) +([\da-fA-Fx]+)', lines[index + 1].strip())
                     if m != None:
-                        bpcds.append((PcdName, int(m.groups(0)[0], 16) , int(sections[-1][1], 16), sections[-1][0]))
+                        bpcds.append((PcdName, int(m.groups(0)[0], 16), int(sections[-1][1], 16), sections[-1][0]))
                 
     # get section information from efi file
     efisecs = PeImageClass(efifilepath).SectionHeaderList

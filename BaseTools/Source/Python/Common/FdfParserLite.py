@@ -2341,7 +2341,7 @@ class FdfParser(object):
         
         AlignValue = None
         if self.__GetAlignment():
-            if self.__Token not in ("Auto", "8", "16", "32", "64", "128", "512", "1K", "4K", "32K" ,"64K", "128K",
+            if self.__Token not in ("Auto", "8", "16", "32", "64", "128", "512", "1K", "4K", "32K", "64K", "128K",
                                     "256K", "512K", "1M", "2M", "4M", "8M", "16M"):
                 raise Warning("Incorrect alignment '%s'" % self.__Token, self.FileName, self.CurrentLineNumber)
             AlignValue = self.__Token
@@ -2610,7 +2610,7 @@ class FdfParser(object):
         
         AlignValue = None
         if self.__GetAlignment():
-            if self.__Token not in ("8", "16", "32", "64", "128", "512", "1K", "4K", "32K" ,"64K", "128K",
+            if self.__Token not in ("8", "16", "32", "64", "128", "512", "1K", "4K", "32K", "64K", "128K",
                                     "256K", "512K", "1M", "2M", "4M", "8M", "16M"):
                 raise Warning("Incorrect alignment '%s'" % self.__Token, self.FileName, self.CurrentLineNumber)
             AlignValue = self.__Token
@@ -2927,7 +2927,7 @@ class FdfParser(object):
             
         AlignValue = ""
         if self.__GetAlignment():
-            if self.__Token not in ("Auto", "8", "16", "32", "64", "128", "512", "1K", "4K", "32K" ,"64K", "128K",
+            if self.__Token not in ("Auto", "8", "16", "32", "64", "128", "512", "1K", "4K", "32K", "64K", "128K",
                                     "256K", "512K", "1M", "2M", "4M", "8M", "16M"):
                 raise Warning("Incorrect alignment At Line ", self.FileName, self.CurrentLineNumber)
             AlignValue = self.__Token
@@ -2992,7 +2992,7 @@ class FdfParser(object):
                 CheckSum = True
     
             if self.__GetAlignment():
-                if self.__Token not in ("Auto", "8", "16", "32", "64", "128", "512", "1K", "4K", "32K" ,"64K", "128K",
+                if self.__Token not in ("Auto", "8", "16", "32", "64", "128", "512", "1K", "4K", "32K", "64K", "128K",
                                         "256K", "512K", "1M", "2M", "4M", "8M", "16M"):
                     raise Warning("Incorrect alignment At Line ", self.FileName, self.CurrentLineNumber)
                 if self.__Token == 'Auto' and (not SectionName == 'PE32') and (not SectionName == 'TE'):
@@ -3067,7 +3067,7 @@ class FdfParser(object):
                 FvImageSectionObj.FvFileType = self.__Token
                 
                 if self.__GetAlignment():
-                    if self.__Token not in ("8", "16", "32", "64", "128", "512", "1K", "4K", "32K" ,"64K", "128K",
+                    if self.__Token not in ("8", "16", "32", "64", "128", "512", "1K", "4K", "32K", "64K", "128K",
                                             "256K", "512K", "1M", "2M", "4M", "8M", "16M"):
                         raise Warning("Incorrect alignment At Line ", self.FileName, self.CurrentLineNumber)
                     FvImageSectionObj.Alignment = self.__Token
@@ -3135,7 +3135,7 @@ class FdfParser(object):
                 EfiSectionObj.BuildNum = self.__Token
                 
         if self.__GetAlignment():
-            if self.__Token not in ("Auto", "8", "16", "32", "64", "128", "512", "1K", "4K", "32K" ,"64K", "128K",
+            if self.__Token not in ("Auto", "8", "16", "32", "64", "128", "512", "1K", "4K", "32K", "64K", "128K",
                                     "256K", "512K", "1M", "2M", "4M", "8M", "16M"):
                 raise Warning("Incorrect alignment '%s'" % self.__Token, self.FileName, self.CurrentLineNumber)
             if self.__Token == 'Auto' and (not SectionName == 'PE32') and (not SectionName == 'TE'):

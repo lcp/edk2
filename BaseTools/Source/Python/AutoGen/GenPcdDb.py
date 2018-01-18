@@ -21,6 +21,7 @@ from ValidCheckingInfoObject import VAR_VALID_OBJECT_FACTORY
 from Common.VariableAttributes import VariableAttributes
 import copy
 from struct import unpack
+from functools import reduce
 
 DATABASE_VERSION = 7
 

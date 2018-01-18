@@ -179,7 +179,6 @@ class ValueExpression(object):
                 Oprand2 = IntToStr(Oprand2)
         TypeDict = {
             type(0)  : 0,
-            type(0L) : 0,
             type('') : 1,
             type(True) : 2
         }
@@ -819,7 +818,7 @@ class ValueExpressionEx(ValueExpression):
                     else:
                         ListItem = PcdValue.split(',')
 
-                    if type(ListItem) == type(0) or type(ListItem) == type(0L):
+                    if type(ListItem) == type(0):
                         for Index in range(0, Size):
                             ValueStr += '0x%02X' % (int(ListItem) & 255)
                             ListItem >>= 8

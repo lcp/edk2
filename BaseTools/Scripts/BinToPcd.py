@@ -42,13 +42,13 @@ if __name__ == '__main__':
     return Value
 
   def ValidatePcdName (Argument):
-    if re.split('[a-zA-Z\_][a-zA-Z0-9\_]*\.[a-zA-Z\_][a-zA-Z0-9\_]*', Argument) != ['','']:
+    if re.split('[a-zA-Z\_][a-zA-Z0-9\_]*\.[a-zA-Z\_][a-zA-Z0-9\_]*', Argument) != ['', '']:
       Message = '%s is not in the form <PcdTokenSpaceGuidCName>.<PcdCName>' % (Argument)
       raise argparse.ArgumentTypeError(Message)
     return Argument
 
   def ValidateGuidName (Argument):
-    if re.split('[a-zA-Z\_][a-zA-Z0-9\_]*', Argument) != ['','']:
+    if re.split('[a-zA-Z\_][a-zA-Z0-9\_]*', Argument) != ['', '']:
       Message = '%s is not a valid GUID C name' % (Argument)
       raise argparse.ArgumentTypeError(Message)
     return Argument
@@ -71,7 +71,7 @@ if __name__ == '__main__':
                       help = "Output filename for PCD value or PCD statement")
   parser.add_argument("-p", "--pcd", dest = 'PcdName', type = ValidatePcdName,
                       help = "Name of the PCD in the form <PcdTokenSpaceGuidCName>.<PcdCName>")
-  parser.add_argument("-t", "--type", dest = 'PcdType', default = None, choices = ['VPD','HII'],
+  parser.add_argument("-t", "--type", dest = 'PcdType', default = None, choices = ['VPD', 'HII'],
                       help = "PCD statement type (HII or VPD).  Default is standard.")
   parser.add_argument("-m", "--max-size", dest = 'MaxSize', type = ValidateUnsignedInteger,
                       help = "Maximum size of the PCD.  Ignored with --type HII.")
@@ -85,7 +85,7 @@ if __name__ == '__main__':
                       help = "Increase output messages")
   parser.add_argument("-q", "--quiet", dest = 'Quiet', action = "store_true",
                       help = "Reduce output messages")
-  parser.add_argument("--debug", dest = 'Debug', type = int, metavar = '[0-9]', choices = list(range(0,10)), default = 0,
+  parser.add_argument("--debug", dest = 'Debug', type = int, metavar = '[0-9]', choices = list(range(0, 10)), default = 0,
                       help = "Set debug level")
 
   #

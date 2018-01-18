@@ -1855,7 +1855,7 @@ class FdfParser:
             return long(
                 ValueExpression(Expr,
                                 self.__CollectMacroPcd()
-                                )(True),0)
+                                )(True), 0)
         except Exception:
             self.SetFileBufferPos(StartPos)
             return None
@@ -2768,7 +2768,7 @@ class FdfParser:
         while True:
             AlignValue = None
             if self.__GetAlignment():
-                if self.__Token not in ("Auto", "8", "16", "32", "64", "128", "512", "1K", "4K", "32K" ,"64K", "128K",
+                if self.__Token not in ("Auto", "8", "16", "32", "64", "128", "512", "1K", "4K", "32K", "64K", "128K",
                                         "256K", "512K", "1M", "2M", "4M", "8M", "16M"):
                     raise Warning("Incorrect alignment '%s'" % self.__Token, self.FileName, self.CurrentLineNumber)
                 #For FFS, Auto is default option same to ""
@@ -2828,7 +2828,7 @@ class FdfParser:
             FfsFileObj.CheckSum = True
 
         if self.__GetAlignment():
-            if self.__Token not in ("Auto", "8", "16", "32", "64", "128", "512", "1K", "4K", "32K" ,"64K", "128K",
+            if self.__Token not in ("Auto", "8", "16", "32", "64", "128", "512", "1K", "4K", "32K", "64K", "128K",
                                     "256K", "512K", "1M", "2M", "4M", "8M", "16M"):
                 raise Warning("Incorrect alignment '%s'" % self.__Token, self.FileName, self.CurrentLineNumber)
             #For FFS, Auto is default option same to ""
@@ -2900,7 +2900,7 @@ class FdfParser:
 
         AlignValue = None
         if self.__GetAlignment():
-            if self.__Token not in ("Auto", "8", "16", "32", "64", "128", "512", "1K", "4K", "32K" ,"64K", "128K",
+            if self.__Token not in ("Auto", "8", "16", "32", "64", "128", "512", "1K", "4K", "32K", "64K", "128K",
                                     "256K", "512K", "1M", "2M", "4M", "8M", "16M"):
                 raise Warning("Incorrect alignment '%s'" % self.__Token, self.FileName, self.CurrentLineNumber)
             AlignValue = self.__Token
@@ -3190,7 +3190,7 @@ class FdfParser:
 
         AlignValue = None
         if self.__GetAlignment():
-            if self.__Token not in ("8", "16", "32", "64", "128", "512", "1K", "4K", "32K" ,"64K", "128K",
+            if self.__Token not in ("8", "16", "32", "64", "128", "512", "1K", "4K", "32K", "64K", "128K",
                                     "256K", "512K", "1M", "2M", "4M", "8M", "16M"):
                 raise Warning("Incorrect alignment '%s'" % self.__Token, self.FileName, self.CurrentLineNumber)
             AlignValue = self.__Token
@@ -3583,7 +3583,7 @@ class FdfParser:
         AfileName = self.__Token
         AfileBaseName = os.path.basename(AfileName)
         
-        if os.path.splitext(AfileBaseName)[1]  not in [".bin",".BIN",".Bin",".dat",".DAT",".Dat",".data",".DATA",".Data"]:
+        if os.path.splitext(AfileBaseName)[1]  not in [".bin", ".BIN", ".Bin", ".dat", ".DAT", ".Dat", ".data", ".DATA", ".Data"]:
             raise Warning('invalid binary file type, should be one of "bin","BIN","Bin","dat","DAT","Dat","data","DATA","Data"', \
                           self.FileName, self.CurrentLineNumber)
         
@@ -3782,7 +3782,7 @@ class FdfParser:
 
         AlignValue = ""
         if self.__GetAlignment():
-            if self.__Token not in ("Auto", "8", "16", "32", "64", "128", "512", "1K", "4K", "32K" ,"64K", "128K",
+            if self.__Token not in ("Auto", "8", "16", "32", "64", "128", "512", "1K", "4K", "32K", "64K", "128K",
                                     "256K", "512K", "1M", "2M", "4M", "8M", "16M"):
                 raise Warning("Incorrect alignment '%s'" % self.__Token, self.FileName, self.CurrentLineNumber)
             #For FFS, Auto is default option same to ""
@@ -3832,7 +3832,7 @@ class FdfParser:
 
             SectAlignment = ""
             if self.__GetAlignment():
-                if self.__Token not in ("Auto", "8", "16", "32", "64", "128", "512", "1K", "4K", "32K" ,"64K", "128K",
+                if self.__Token not in ("Auto", "8", "16", "32", "64", "128", "512", "1K", "4K", "32K", "64K", "128K",
                                         "256K", "512K", "1M", "2M", "4M", "8M", "16M"):
                     raise Warning("Incorrect alignment '%s'" % self.__Token, self.FileName, self.CurrentLineNumber)
                 if self.__Token == 'Auto' and (not SectionName == 'PE32') and (not SectionName == 'TE'):
@@ -3912,7 +3912,7 @@ class FdfParser:
                 FvImageSectionObj.FvFileType = self.__Token
 
                 if self.__GetAlignment():
-                    if self.__Token not in ("8", "16", "32", "64", "128", "512", "1K", "4K", "32K" ,"64K", "128K",
+                    if self.__Token not in ("8", "16", "32", "64", "128", "512", "1K", "4K", "32K", "64K", "128K",
                                             "256K", "512K", "1M", "2M", "4M", "8M", "16M"):
                         raise Warning("Incorrect alignment '%s'" % self.__Token, self.FileName, self.CurrentLineNumber)
                     FvImageSectionObj.Alignment = self.__Token
@@ -3980,7 +3980,7 @@ class FdfParser:
                 EfiSectionObj.BuildNum = self.__Token
 
         if self.__GetAlignment():
-            if self.__Token not in ("Auto", "8", "16", "32", "64", "128", "512", "1K", "4K", "32K" ,"64K", "128K",
+            if self.__Token not in ("Auto", "8", "16", "32", "64", "128", "512", "1K", "4K", "32K", "64K", "128K",
                                     "256K", "512K", "1M", "2M", "4M", "8M", "16M"):
                 raise Warning("Incorrect alignment '%s'" % self.__Token, self.FileName, self.CurrentLineNumber)
             if self.__Token == 'Auto' and (not SectionName == 'PE32') and (not SectionName == 'TE'):
@@ -4720,7 +4720,7 @@ class FdfParser:
                     FvInFdList = self.__GetFvInFd(RefFdName)
                     if FvInFdList != []:
                         for FvNameInFd in FvInFdList:
-                            LogStr += "FD %s contains FV %s\n" % (RefFdName,FvNameInFd)
+                            LogStr += "FD %s contains FV %s\n" % (RefFdName, FvNameInFd)
                             if FvNameInFd not in RefFvStack:
                                 RefFvStack.append(FvNameInFd)
 
@@ -4776,7 +4776,7 @@ class FdfParser:
                         CapInFdList = self.__GetCapInFd(RefFdName)
                         if CapInFdList != []:
                             for CapNameInFd in CapInFdList:
-                                LogStr += "FD %s contains Capsule %s\n" % (RefFdName,CapNameInFd)
+                                LogStr += "FD %s contains Capsule %s\n" % (RefFdName, CapNameInFd)
                                 if CapNameInFd not in RefCapStack:
                                     RefCapStack.append(CapNameInFd)
 
@@ -4787,7 +4787,7 @@ class FdfParser:
                         FvInFdList = self.__GetFvInFd(RefFdName)
                         if FvInFdList != []:
                             for FvNameInFd in FvInFdList:
-                                LogStr += "FD %s contains FV %s\n" % (RefFdName,FvNameInFd)
+                                LogStr += "FD %s contains FV %s\n" % (RefFdName, FvNameInFd)
                                 if FvNameInFd not in RefFvList:
                                     RefFvList.append(FvNameInFd)
 

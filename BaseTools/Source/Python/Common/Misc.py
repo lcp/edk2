@@ -125,7 +125,7 @@ def _parseForGCC(lines, efifilepath, varnames):
                     if Str:
                         m = re.match('^([\da-fA-Fx]+) +([\da-fA-Fx]+)', Str.strip())
                         if m != None:
-                            varoffset.append((varname, int(m.groups(0)[0], 16) , int(sections[-1][1], 16), sections[-1][0]))
+                            varoffset.append((varname, int(m.groups(0)[0], 16), int(sections[-1][1], 16), sections[-1][0]))
 
     if not varoffset:
         return []
@@ -1475,15 +1475,15 @@ def AnalyzePcdExpression(Setting):
     return FieldList
 
 def ParseDevPathValue (Value):
-    DevPathList = [ "Path","HardwarePath","Pci","PcCard","MemoryMapped","VenHw","Ctrl","BMC","AcpiPath","Acpi","PciRoot",
-                    "PcieRoot","Floppy","Keyboard","Serial","ParallelPort","AcpiEx","AcpiExp","AcpiAdr","Msg","Ata","Scsi",
-                    "Fibre","FibreEx","I1394","USB","I2O","Infiniband","VenMsg","VenPcAnsi","VenVt100","VenVt100Plus",
-                    "VenUtf8","UartFlowCtrl","SAS","SasEx","NVMe","UFS","SD","eMMC","DebugPort","MAC","IPv4","IPv6","Uart",
-                    "UsbClass","UsbAudio","UsbCDCControl","UsbHID","UsbImage","UsbPrinter","UsbMassStorage","UsbHub",
-                    "UsbCDCData","UsbSmartCard","UsbVideo","UsbDiagnostic","UsbWireless","UsbDeviceFirmwareUpdate",
-                    "UsbIrdaBridge","UsbTestAndMeasurement","UsbWwid","Unit","iSCSI","Vlan","Uri","Bluetooth","Wi-Fi",
-                    "MediaPath","HD","CDROM","VenMedia","Media","Fv","FvFile","Offset","RamDisk","VirtualDisk","VirtualCD",
-                    "PersistentVirtualDisk","PersistentVirtualCD","BbsPath","BBS","Sata" ]
+    DevPathList = [ "Path", "HardwarePath", "Pci", "PcCard", "MemoryMapped", "VenHw", "Ctrl", "BMC", "AcpiPath", "Acpi", "PciRoot",
+                    "PcieRoot", "Floppy", "Keyboard", "Serial", "ParallelPort", "AcpiEx", "AcpiExp", "AcpiAdr", "Msg", "Ata", "Scsi",
+                    "Fibre", "FibreEx", "I1394", "USB", "I2O", "Infiniband", "VenMsg", "VenPcAnsi", "VenVt100", "VenVt100Plus",
+                    "VenUtf8", "UartFlowCtrl", "SAS", "SasEx", "NVMe", "UFS", "SD", "eMMC", "DebugPort", "MAC", "IPv4", "IPv6", "Uart",
+                    "UsbClass", "UsbAudio", "UsbCDCControl", "UsbHID", "UsbImage", "UsbPrinter", "UsbMassStorage", "UsbHub",
+                    "UsbCDCData", "UsbSmartCard", "UsbVideo", "UsbDiagnostic", "UsbWireless", "UsbDeviceFirmwareUpdate",
+                    "UsbIrdaBridge", "UsbTestAndMeasurement", "UsbWwid", "Unit", "iSCSI", "Vlan", "Uri", "Bluetooth", "Wi-Fi",
+                    "MediaPath", "HD", "CDROM", "VenMedia", "Media", "Fv", "FvFile", "Offset", "RamDisk", "VirtualDisk", "VirtualCD",
+                    "PersistentVirtualDisk", "PersistentVirtualCD", "BbsPath", "BBS", "Sata" ]
     if '\\' in Value:
         Value.replace('\\', '/').replace(' ', '')
     for Item in Value.split('/'):
@@ -1665,7 +1665,7 @@ def AnalyzeDscPcd(Setting, PcdType, DataType=''):
 #         Value, Size = ParseFieldValue(Value)
         if Size:
             try:
-                int(Size,16) if Size.upper().startswith("0X") else int(Size)
+                int(Size, 16) if Size.upper().startswith("0X") else int(Size)
             except:
                 IsValid = False
                 Size = -1
@@ -1694,7 +1694,7 @@ def AnalyzeDscPcd(Setting, PcdType, DataType=''):
 
         if Size:
             try:
-                int(Size,16) if Size.upper().startswith("0X") else int(Size)
+                int(Size, 16) if Size.upper().startswith("0X") else int(Size)
             except:
                 IsValid = False
                 Size = -1
@@ -1716,7 +1716,7 @@ def AnalyzeDscPcd(Setting, PcdType, DataType=''):
             IsValid = (len(FieldList) <= 3)
         if Size:
             try:
-                int(Size,16) if Size.upper().startswith("0X") else int(Size)
+                int(Size, 16) if Size.upper().startswith("0X") else int(Size)
             except:
                 IsValid = False
                 Size = -1
@@ -1920,7 +1920,7 @@ def ConvertStringToByteArray(Value):
 
     Value = eval(Value)         # translate escape character
     NewValue = '{'
-    for Index in range(0,len(Value)):
+    for Index in range(0, len(Value)):
         if Unicode:
             NewValue = NewValue + str(ord(Value[Index]) % 0x10000) + ','
         else:
@@ -2164,28 +2164,28 @@ class PeImageClass():
         return Value
 
 class DefaultStore():
-    def __init__(self,DefaultStores ):
+    def __init__(self, DefaultStores):
 
         self.DefaultStores = DefaultStores
-    def DefaultStoreID(self,DefaultStoreName):
-        for key,value in self.DefaultStores.items():
+    def DefaultStoreID(self, DefaultStoreName):
+        for key, value in self.DefaultStores.items():
             if value == DefaultStoreName:
                 return key
         return None
     def GetDefaultDefault(self):
         if not self.DefaultStores or "0" in self.DefaultStores:
-            return "0",TAB_DEFAULT_STORES_DEFAULT
+            return "0", TAB_DEFAULT_STORES_DEFAULT
         else:
             minvalue = min([int(value_str) for value_str in self.DefaultStores.keys()])
             return (str(minvalue), self.DefaultStores[str(minvalue)])
-    def GetMin(self,DefaultSIdList):
+    def GetMin(self, DefaultSIdList):
         if not DefaultSIdList:
             return "STANDARD"
         storeidset = {storeid for storeid, storename in self.DefaultStores.values() if storename in DefaultSIdList}
         if not storeidset:
             return ""
         minid = min(storeidset )
-        for sid,name in self.DefaultStores.values():
+        for sid, name in self.DefaultStores.values():
             if sid == minid:
                 return name
 class SkuClass():
@@ -2200,7 +2200,7 @@ class SkuClass():
 
         for SkuName in SkuIds:
             SkuId = SkuIds[SkuName][0]
-            skuid_num = int(SkuId,16) if SkuId.upper().startswith("0X") else int(SkuId)
+            skuid_num = int(SkuId, 16) if SkuId.upper().startswith("0X") else int(SkuId)
             if skuid_num > 0xFFFFFFFFFFFFFFFF:
                 EdkLogger.error("build", PARAMETER_INVALID,
                             ExtraData = "SKU-ID [%s] value %s exceeds the max value of UINT64"
@@ -2249,9 +2249,9 @@ class SkuClass():
             self.__SkuInherit = {}
             for item in self.SkuData.values():
                 self.__SkuInherit[item[1]]=item[2] if item[2] else "DEFAULT"
-        return self.__SkuInherit.get(skuname,"DEFAULT")
+        return self.__SkuInherit.get(skuname, "DEFAULT")
 
-    def GetSkuChain(self,sku):
+    def GetSkuChain(self, sku):
         if sku == "DEFAULT":
             return ["DEFAULT"]
         skulist = [sku]

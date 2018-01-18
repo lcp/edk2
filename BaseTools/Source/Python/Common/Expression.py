@@ -164,7 +164,7 @@ class ValueExpression(object):
                 if Oprand1[0] in ['"', "'"] or Oprand1.startswith('L"') or Oprand1.startswith("L'")or Oprand1.startswith('UINT'):
                     Oprand1, Size = ParseFieldValue(Oprand1)
                 else:
-                    Oprand1,Size = ParseFieldValue('"' + Oprand1 + '"')
+                    Oprand1, Size = ParseFieldValue('"' + Oprand1 + '"')
             if type(Oprand2) == type(''):
                 if Oprand2[0] in ['"', "'"] or Oprand2.startswith('L"') or Oprand2.startswith("L'") or Oprand2.startswith('UINT'):
                     Oprand2, Size = ParseFieldValue(Oprand2)
@@ -493,7 +493,7 @@ class ValueExpression(object):
         IsArray = IsGuid = False
         if len(Token.split(',')) == 11 and len(Token.split(',{')) == 2 \
             and len(Token.split('},')) == 1:
-            HexLen = [11,6,6,5,4,4,4,4,4,4,6]
+            HexLen = [11, 6, 6, 5, 4, 4, 4, 4, 4, 4, 6]
             HexList= Token.split(',')
             if HexList[3].startswith('{') and \
                 not [Index for Index, Hex in enumerate(HexList) if len(Hex) > HexLen[Index]]:
@@ -688,7 +688,7 @@ class ValueExpression(object):
     # Parse operator
     def _GetOperator(self):
         self.__SkipWS()
-        LegalOpLst = ['&&', '||', '!=', '==', '>=', '<='] + self.NonLetterOpLst + ['?',':']
+        LegalOpLst = ['&&', '||', '!=', '==', '>=', '<='] + self.NonLetterOpLst + ['?', ':']
 
         self._Token = ''
         Expr = self._Expr[self._Idx:]

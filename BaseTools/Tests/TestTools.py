@@ -161,7 +161,7 @@ class BaseToolsTest(unittest.TestCase):
         if minlen is None: minlen = 1024
         if maxlen is None: maxlen = minlen
         return ''.join(
-            [chr(random.randint(0,255))
+            [chr(random.randint(0, 255))
              for x in range(random.randint(minlen, maxlen))
             ])
 

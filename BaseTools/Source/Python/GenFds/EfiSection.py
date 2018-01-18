@@ -130,7 +130,7 @@ class EfiSection (EfiSectionClassObject):
             elif FileList != []:
                 for File in FileList:
                     Index = Index + 1
-                    Num = '%s.%d' %(SecNum , Index)
+                    Num = '%s.%d' %(SecNum, Index)
                     OutputFile = os.path.join(OutputPath, ModuleName + 'SEC' + Num + Ffs.SectionSuffix.get(SectionType))
                     f = open(File, 'r')
                     VerString = f.read()
@@ -187,7 +187,7 @@ class EfiSection (EfiSectionClassObject):
             elif FileList != []:
                 for File in FileList:
                     Index = Index + 1
-                    Num = '%s.%d' %(SecNum , Index)
+                    Num = '%s.%d' %(SecNum, Index)
                     OutputFile = os.path.join(OutputPath, ModuleName + 'SEC' + Num + Ffs.SectionSuffix.get(SectionType))
                     f = open(File, 'r')
                     UiString = f.read()
@@ -228,7 +228,7 @@ class EfiSection (EfiSectionClassObject):
                 for File in FileList:
                     """ Copy Map file to FFS output path """
                     Index = Index + 1
-                    Num = '%s.%d' %(SecNum , Index)
+                    Num = '%s.%d' %(SecNum, Index)
                     OutputFile = os.path.join( OutputPath, ModuleName + 'SEC' + Num + Ffs.SectionSuffix.get(SectionType))
                     File = GenFdsGlobalVariable.MacroExtend(File, Dict)
                     

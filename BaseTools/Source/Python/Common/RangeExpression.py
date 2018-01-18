@@ -176,7 +176,7 @@ class EQOperatorObject(object):
             raise BadExpression(ERR_SNYTAX % Expr)
         rangeId1 = str(uuid.uuid1())
         rangeContainer = RangeContainer()
-        rangeContainer.push(RangeObject(int(Operand) , int(Operand)))
+        rangeContainer.push(RangeObject(int(Operand), int(Operand)))
         SymbolTable[rangeId1] = rangeContainer
         return rangeId1   
     
@@ -473,7 +473,7 @@ class RangeExpression(object):
 
     # [!]*A
     def _RelExpr(self):
-        if self._IsOperator(["NOT" , "LE", "GE", "LT", "GT", "EQ", "XOR"]):
+        if self._IsOperator(["NOT", "LE", "GE", "LT", "GT", "EQ", "XOR"]):
             Token = self._Token
             Val = self._NeExpr()
             try:

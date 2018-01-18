@@ -106,7 +106,7 @@ class XOROperatorObject(object):
     def __init__(self):     
         pass
     def Calculate(self, Operand, DataType, SymbolTable): 
-        if type(Operand) == type('') and not Operand.isalnum():
+        if isinstance(Operand, type('')) and not Operand.isalnum():
             Expr = "XOR ..."
             raise BadExpression(ERR_SNYTAX % Expr)
         rangeId = str(uuid.uuid1())
@@ -120,7 +120,7 @@ class LEOperatorObject(object):
     def __init__(self):     
         pass
     def Calculate(self, Operand, DataType, SymbolTable): 
-        if type(Operand) == type('') and not Operand.isalnum():
+        if isinstance(Operand, type('')) and not Operand.isalnum():
             Expr = "LE ..."
             raise BadExpression(ERR_SNYTAX % Expr)
         rangeId1 = str(uuid.uuid1())
@@ -132,7 +132,7 @@ class LTOperatorObject(object):
     def __init__(self):     
         pass
     def Calculate(self, Operand, DataType, SymbolTable):
-        if type(Operand) == type('') and not Operand.isalnum():
+        if isinstance(Operand, type('')) and not Operand.isalnum():
             Expr = "LT ..." 
             raise BadExpression(ERR_SNYTAX % Expr) 
         rangeId1 = str(uuid.uuid1())
@@ -145,7 +145,7 @@ class GEOperatorObject(object):
     def __init__(self):     
         pass
     def Calculate(self, Operand, DataType, SymbolTable): 
-        if type(Operand) == type('') and not Operand.isalnum():
+        if isinstance(Operand, type('')) and not Operand.isalnum():
             Expr = "GE ..."
             raise BadExpression(ERR_SNYTAX % Expr)
         rangeId1 = str(uuid.uuid1())
@@ -158,7 +158,7 @@ class GTOperatorObject(object):
     def __init__(self):     
         pass
     def Calculate(self, Operand, DataType, SymbolTable): 
-        if type(Operand) == type('') and not Operand.isalnum():
+        if isinstance(Operand, type('')) and not Operand.isalnum():
             Expr = "GT ..."
             raise BadExpression(ERR_SNYTAX % Expr)
         rangeId1 = str(uuid.uuid1())
@@ -171,7 +171,7 @@ class EQOperatorObject(object):
     def __init__(self):     
         pass
     def Calculate(self, Operand, DataType, SymbolTable): 
-        if type(Operand) == type('') and not Operand.isalnum():
+        if isinstance(Operand, type('')) and not Operand.isalnum():
             Expr = "EQ ..."
             raise BadExpression(ERR_SNYTAX % Expr)
         rangeId1 = str(uuid.uuid1())
@@ -370,7 +370,7 @@ class RangeExpression(object):
 
     def __init__(self, Expression, PcdDataType, SymbolTable = {}):
         self._NoProcess = False
-        if type(Expression) != type(''):
+        if not isinstance(Expression, type('')):
             self._Expr = Expression
             self._NoProcess = True
             return
@@ -591,7 +591,7 @@ class RangeExpression(object):
                 Ex.Pcd = self._Token
                 raise Ex
             self._Token = RangeExpression(self._Symb[self._Token], self._Symb)(True, self._Depth + 1)
-            if type(self._Token) != type(''):
+            if not isinstance(self._Token, type('')):
                 self._LiteralToken = hex(self._Token)
                 return
 

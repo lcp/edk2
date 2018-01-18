@@ -1608,8 +1608,7 @@ class PlatformAutoGen(AutoGen):
                         PcdNvStoreDfBuffer.SkuInfoList[skuname].DefaultValue = vardump
                         PcdNvStoreDfBuffer.MaxDatumSize = str(len(vardump.split(",")))
 
-            PlatformPcds = self._PlatformPcds.keys()
-            PlatformPcds.sort()
+            PlatformPcds = sorted(self._PlatformPcds.keys())
             #
             # Add VPD type PCD into VpdFile and determine whether the VPD PCD need to be fixed up.
             #

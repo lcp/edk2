@@ -143,7 +143,7 @@ class DependencyExpression:
     def __init__(self, Expression, ModuleType, Optimize=False):
         self.ModuleType = ModuleType
         self.Phase = gType2Phase[ModuleType]
-        if type(Expression) == type([]):
+        if isinstance(Expression, type([])):
             self.ExpressionString = " ".join(Expression)
             self.TokenList = Expression
         else:

@@ -263,7 +263,7 @@ def main():
         return 1
 
     try:
-        while 1:
+        while True:
             line = file.readline()
             if not line:
                 break

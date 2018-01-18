@@ -21,7 +21,7 @@ from builtins import range
 import Common.LongFilePathOs as os, codecs, re
 import distutils.util
 import Common.EdkLogger as EdkLogger
-import StringIO
+from io import BytesIO
 from Common.BuildToolError import *
 from Common.String import GetLineNo
 from Common.Misc import PathClass
@@ -308,7 +308,7 @@ class UniFileClassObject(object):
 
         self.VerifyUcs2Data(FileIn, FileName, Encoding)
 
-        UniFile = StringIO.StringIO(FileIn)
+        UniFile = BytesIO(FileIn)
         Info = codecs.lookup(Encoding)
         (Reader, Writer) = (Info.streamreader, Info.streamwriter)
         return codecs.StreamReaderWriter(UniFile, Reader, Writer)
@@ -322,7 +322,7 @@ class UniFileClassObject(object):
             FileDecoded = codecs.decode(FileIn, Encoding)
             Ucs2Info.encode(FileDecoded)
         except:
-            UniFile = StringIO.StringIO(FileIn)
+            UniFile = BytesIO(FileIn)
             Info = codecs.lookup(Encoding)
             (Reader, Writer) = (Info.streamreader, Info.streamwriter)
             File = codecs.StreamReaderWriter(UniFile, Reader, Writer)

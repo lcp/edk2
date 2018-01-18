@@ -18,7 +18,7 @@
 from builtins import range
 import Common.LongFilePathOs as os
 import subprocess
-import StringIO
+from io import BytesIO
 from struct import *
 
 import Ffs
@@ -268,7 +268,7 @@ class FV (FvClassObject):
         #
         self.InfFileName = os.path.join(GenFdsGlobalVariable.FvDir,
                                    self.UiFvName + '.inf')
-        self.FvInfFile = StringIO.StringIO()
+        self.FvInfFile = BytesIO()
 
         #
         # Add [Options]
@@ -427,7 +427,7 @@ class FV (FvClassObject):
             #
             if TotalSize > 0:
                 FvExtHeaderFileName = os.path.join(GenFdsGlobalVariable.FvDir, self.UiFvName + '.ext')
-                FvExtHeaderFile = StringIO.StringIO()
+                FvExtHeaderFile = BytesIO()
                 FvExtHeaderFile.write(Buffer)
                 Changed = SaveFileOnChange(FvExtHeaderFileName, FvExtHeaderFile.getvalue(), True)
                 FvExtHeaderFile.close()

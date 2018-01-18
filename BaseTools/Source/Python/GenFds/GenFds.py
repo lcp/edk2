@@ -29,7 +29,7 @@ from Workspace.BuildClassObject import PcdClassObject
 from Workspace.BuildClassObject import ModuleBuildClassObject
 import RuleComplexFile
 from EfiSection import EfiSection
-import StringIO
+from io import BytesIO
 import Common.TargetTxtClassObject as TargetTxtClassObject
 import Common.ToolDefClassObject as ToolDefClassObject
 from Common.DataType import *
@@ -591,13 +591,13 @@ class GenFds :
         if GenFds.OnlyGenerateThisFv != None and GenFds.OnlyGenerateThisFv.upper() in GenFdsGlobalVariable.FdfParser.Profile.FvDict.keys():
             FvObj = GenFdsGlobalVariable.FdfParser.Profile.FvDict.get(GenFds.OnlyGenerateThisFv.upper())
             if FvObj != None:
-                Buffer = StringIO.StringIO()
+                Buffer = BytesIO()
                 FvObj.AddToBuffer(Buffer)
                 Buffer.close()
                 return
         elif GenFds.OnlyGenerateThisFv == None:
             for FvName in GenFdsGlobalVariable.FdfParser.Profile.FvDict.keys():
-                Buffer = StringIO.StringIO('')
+                Buffer = BytesIO('')
                 FvObj = GenFdsGlobalVariable.FdfParser.Profile.FvDict[FvName]
                 FvObj.AddToBuffer(Buffer)
                 Buffer.close()
@@ -749,7 +749,7 @@ class GenFds :
 
     def GenerateGuidXRefFile(BuildDb, ArchList, FdfParserObj):
         GuidXRefFileName = os.path.join(GenFdsGlobalVariable.FvDir, "Guid.xref")
-        GuidXRefFile = StringIO.StringIO('')
+        GuidXRefFile = BytesIO('')
         GuidDict = {}
         ModuleList = []
         FileGuidList = []

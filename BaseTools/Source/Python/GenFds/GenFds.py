@@ -374,7 +374,7 @@ def CheckBuildOptionPcd():
     for Arch in GenFdsGlobalVariable.ArchList:
         PkgList  = GenFdsGlobalVariable.WorkSpace.GetPackageList(GenFdsGlobalVariable.ActivePlatform, Arch, GenFdsGlobalVariable.TargetName, GenFdsGlobalVariable.ToolChainTag)
         for i, pcd in enumerate(GlobalData.BuildOptionPcd):
-            if type(pcd) is tuple:
+            if isinstance(pcd, tuple):
                 continue
             (pcdname, pcdvalue) = pcd.split('=')
             if not pcdvalue:
@@ -842,7 +842,7 @@ class GenFds :
                         if not Name:
                             continue
 
-                        Name = ' '.join(Name) if type(Name) == type([]) else Name
+                        Name = ' '.join(Name) if isinstance(Name, type([])) else Name
                         GuidXRefFile.write("%s %s\n" %(FileStatementGuid, Name))
 
        # Append GUIDs, Protocols, and PPIs to the Xref file

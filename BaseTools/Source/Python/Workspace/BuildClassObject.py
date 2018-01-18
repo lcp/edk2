@@ -162,7 +162,7 @@ class StructurePcd(PcdClassObject):
         self.validateranges = PcdObject.validateranges if PcdObject.validateranges else self.validateranges
         self.validlists = PcdObject.validlists if PcdObject.validlists else self.validlists
         self.expressions = PcdObject.expressions if PcdObject.expressions else self.expressions
-        if type(PcdObject) is StructurePcd:
+        if isinstance(PcdObject, StructurePcd):
             self.StructuredPcdIncludeFile = PcdObject.StructuredPcdIncludeFile if PcdObject.StructuredPcdIncludeFile else self.StructuredPcdIncludeFile
             self.PackageDecs = PcdObject.PackageDecs if PcdObject.PackageDecs else self.PackageDecs
             self.DefaultValues = PcdObject.DefaultValues if PcdObject.DefaultValues else self.DefaultValues

@@ -159,7 +159,7 @@ class TargetTxtClassObject(object):
     # @param key:   The key of the item to be printed
     #
     def printList(Key, List):
-        if type(List) == type([]):
+        if isinstance(List, type([])):
             if len(List) > 0:
                 if Key.find(TAB_SPLIT) != -1:
                     print("\n" + Key)

@@ -19,7 +19,7 @@
 from __future__ import print_function
 import Common.LongFilePathOs as os
 import re
-import StringIO
+from io import BytesIO
 import sys
 import glob
 import time
@@ -1778,7 +1778,7 @@ class Build():
                             if not Ma.IsLibrary:
                                 ModuleList[Ma.Guid.upper()] = Ma
 
-                    MapBuffer = StringIO('')
+                    MapBuffer = BytesIO('')
                     if self.LoadFixAddress != 0:
                         #
                         # Rebase module to the preferred memory address before GenFds
@@ -1928,7 +1928,7 @@ class Build():
                             if not Ma.IsLibrary:
                                 ModuleList[Ma.Guid.upper()] = Ma
 
-                    MapBuffer = StringIO('')
+                    MapBuffer = BytesIO('')
                     if self.LoadFixAddress != 0:
                         #
                         # Rebase module to the preferred memory address before GenFds
@@ -2116,7 +2116,7 @@ class Build():
                     #
                     # Rebase module to the preferred memory address before GenFds
                     #
-                    MapBuffer = StringIO('')
+                    MapBuffer = BytesIO('')
                     if self.LoadFixAddress != 0:
                         self._CollectModuleMapBuffer(MapBuffer, ModuleList)
 

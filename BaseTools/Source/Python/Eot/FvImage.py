@@ -24,7 +24,6 @@ import codecs
 import copy
 
 from UserDict import IterableUserDict
-from cStringIO import StringIO
 from array import array
 from Common.LongFilePathSupport import OpenLongFilePath as open
 from CommonDataClass import *

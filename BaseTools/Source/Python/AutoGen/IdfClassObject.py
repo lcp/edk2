@@ -14,7 +14,6 @@
 # Import Modules
 #
 import Common.EdkLogger as EdkLogger
-import StringIO
 from Common.BuildToolError import *
 from Common.String import GetLineNo
 from Common.Misc import PathClass

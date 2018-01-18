@@ -16,7 +16,7 @@
 # Import Modules
 #
 import Section
-import StringIO
+from io import BytesIO
 from Ffs import Ffs
 import subprocess
 from GenFdsGlobalVariable import GenFdsGlobalVariable
@@ -97,7 +97,7 @@ class FvImageSection(FvImageSectionClassObject):
         # Generate Fv
         #
         if self.FvName != None:
-            Buffer = StringIO.StringIO('')
+            Buffer = BytesIO('')
             Fv = GenFdsGlobalVariable.FdfParser.Profile.FvDict.get(self.FvName)
             if Fv != None:
                 self.Fv = Fv

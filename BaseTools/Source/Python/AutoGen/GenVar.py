@@ -21,6 +21,7 @@ import copy
 from Common.VariableAttributes import VariableAttributes
 from Common.Misc import *
 import collections
+from functools import reduce
 
 var_info = collections.namedtuple("uefi_var", "pcdindex,pcdname,defaultstoragename,skuname,var_name, var_guid, var_offset,var_attribute,pcd_default_value, default_value, data_type")
 NvStorageHeaderSize = 28

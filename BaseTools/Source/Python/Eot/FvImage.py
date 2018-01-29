@@ -14,6 +14,7 @@
 ## Import Modules
 #
 from __future__ import print_function
+from __future__ import absolute_import
 from builtins import range
 import Common.LongFilePathOs as os
 import re
@@ -31,7 +32,7 @@ from Common.Misc import sdict, GuidStructureStringToGuidString
 
 import Common.EdkLogger as EdkLogger
 
-import EotGlobalData
+from . import EotGlobalData
 
 # Global definiton
 gFfsPrintTitle  = "%-36s  %-21s %8s %8s %8s  %-4s %-36s" % ("GUID", "TYPE", "OFFSET", "SIZE", "FREE", "ALIGN", "NAME")
@@ -557,7 +558,7 @@ class CompressedImage(Image):
 
     def _GetSections(m):
         try:
-            import EfiCompressor
+            from . import EfiCompressor
             TmpData = EfiCompressor.FrameworkDecompress(
                                         m[m._HEADER_SIZE_:],
                                         len(m) - m._HEADER_SIZE_
@@ -565,7 +566,7 @@ class CompressedImage(Image):
             DecData = array('B')
             DecData.fromstring(TmpData)
         except:
-            import EfiCompressor
+            from . import EfiCompressor
             TmpData = EfiCompressor.UefiDecompress(
                                         m[m._HEADER_SIZE_:],
                                         len(m) - m._HEADER_SIZE_
@@ -665,7 +666,7 @@ class GuidDefinedImage(Image):
                 SectionList.append(Sec)
         elif Guid == m.TIANO_COMPRESS_GUID:
             try:
-                import EfiCompressor
+                from . import EfiCompressor
                 # skip the header
                 Offset = m.DataOffset - 4
                 TmpData = EfiCompressor.FrameworkDecompress(m[Offset:], len(m)-Offset)
@@ -686,7 +687,7 @@ class GuidDefinedImage(Image):
                 pass
         elif Guid == m.LZMA_COMPRESS_GUID:
             try:
-                import LzmaCompressor
+                from . import LzmaCompressor
                 # skip the header
                 Offset = m.DataOffset - 4
                 TmpData = LzmaCompressor.LzmaDecompress(m[Offset:], len(m)-Offset)

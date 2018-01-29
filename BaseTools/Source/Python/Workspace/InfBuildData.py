@@ -12,12 +12,13 @@
 # WITHOUT WARRANTIES OR REPRESENTATIONS OF ANY KIND, EITHER EXPRESS OR IMPLIED.
 #
 
+from __future__ import absolute_import
 from builtins import range
 from Common.String import *
 from Common.DataType import *
 from Common.Misc import *
 from types import *
-from MetaFileParser import *
+from .MetaFileParser import *
 
 from Workspace.BuildClassObject import ModuleBuildClassObject, LibraryClassObject, PcdClassObject
 ## Module build information from INF file

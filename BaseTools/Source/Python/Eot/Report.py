@@ -1,3 +1,4 @@
+from __future__ import absolute_import
 ## @file
 # This file is used to create report for Eot tool
 #
@@ -15,7 +16,7 @@
 # Import Modules
 #
 import Common.LongFilePathOs as os
-import EotGlobalData
+from . import EotGlobalData
 from Common.LongFilePathSupport import OpenLongFilePath as open
 
 ## Report() class

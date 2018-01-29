@@ -15,8 +15,9 @@
 # Import Modules
 #
 from __future__ import print_function
-import EdkLogger
-from DataType import *
+from __future__ import absolute_import
+from . import EdkLogger
+from .DataType import *
 from Common.LongFilePathSupport import OpenLongFilePath as open
 
 ## Convert a text file to a dictionary

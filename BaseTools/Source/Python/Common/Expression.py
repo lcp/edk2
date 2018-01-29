@@ -13,11 +13,12 @@
 ## Import Modules
 #
 from __future__ import print_function
+from __future__ import absolute_import
 from builtins import range
 from Common.GlobalData import *
 from CommonDataClass.Exceptions import BadExpression
 from CommonDataClass.Exceptions import WrnExpression
-from Misc import GuidStringToGuidStructureString, ParseFieldValue
+from .Misc import GuidStringToGuidStructureString, ParseFieldValue
 import Common.EdkLogger as EdkLogger
 import copy
 

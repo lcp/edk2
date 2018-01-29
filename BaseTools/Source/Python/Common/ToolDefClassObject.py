@@ -14,14 +14,15 @@
 ##
 # Import Modules
 #
+from __future__ import absolute_import
 from builtins import range
 import Common.LongFilePathOs as os
 import re
-import EdkLogger
+from . import EdkLogger
 
-from Dictionary import *
-from BuildToolError import *
-from TargetTxtClassObject import *
+from .Dictionary import *
+from .BuildToolError import *
+from .TargetTxtClassObject import *
 from Common.LongFilePathSupport import OpenLongFilePath as open
 from Common.Misc import PathClass
 from Common.String import NormPath

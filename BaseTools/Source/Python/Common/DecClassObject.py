@@ -15,18 +15,19 @@
 # Import Modules
 #
 from __future__ import print_function
+from __future__ import absolute_import
 import Common.LongFilePathOs as os
-from String import *
-from DataType import *
-from Identification import *
-from Dictionary import *
+from .String import *
+from .DataType import *
+from .Identification import *
+from .Dictionary import *
 from CommonDataClass.PackageClass import *
 from CommonDataClass.CommonClass import PcdClass
-from BuildToolError import *
+from .BuildToolError import *
 from Table.TableDec import TableDec
-import Database
-from Parsing import *
-import GlobalData
+from . import Database
+from .Parsing import *
+from . import GlobalData
 from Common.LongFilePathSupport import OpenLongFilePath as open
 
 #

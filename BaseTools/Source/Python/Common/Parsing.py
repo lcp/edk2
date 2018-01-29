@@ -14,10 +14,11 @@
 ##
 # Import Modules
 #
+from __future__ import absolute_import
 from builtins import range
-from String import *
+from .String import *
 from CommonDataClass.DataClass import *
-from DataType import *
+from .DataType import *
 
 ## ParseDefineMacro
 #

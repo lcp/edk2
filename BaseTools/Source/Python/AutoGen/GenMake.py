@@ -13,6 +13,7 @@
 
 ## Import Modules
 #
+from __future__ import absolute_import
 import Common.LongFilePathOs as os
 import sys
 import string
@@ -23,7 +24,7 @@ from Common.MultipleWorkspace import MultipleWorkspace as mws
 from Common.BuildToolError import *
 from Common.Misc import *
 from Common.String import *
-from BuildEngine import *
+from .BuildEngine import *
 import Common.GlobalData as GlobalData
 
 ## Regular expression for finding header file inclusions

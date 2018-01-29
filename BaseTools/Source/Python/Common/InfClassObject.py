@@ -15,21 +15,22 @@
 # Import Modules
 #
 from __future__ import print_function
+from __future__ import absolute_import
 import Common.LongFilePathOs as os
 import re
-import EdkLogger
+from . import EdkLogger
 from CommonDataClass.CommonClass import LibraryClassClass
 from CommonDataClass.ModuleClass import *
-from String import *
-from DataType import *
-from Identification import *
-from Dictionary import *
-from BuildToolError import *
-from Misc import sdict
-import GlobalData
+from .String import *
+from .DataType import *
+from .Identification import *
+from .Dictionary import *
+from .BuildToolError import *
+from .Misc import sdict
+from . import GlobalData
 from Table.TableInf import TableInf
-import Database
-from Parsing import *
+from . import Database
+from .Parsing import *
 from Common.LongFilePathSupport import OpenLongFilePath as open
 
 #

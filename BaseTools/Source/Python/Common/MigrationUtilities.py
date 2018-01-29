@@ -14,10 +14,11 @@
 ##
 # Import Modules
 #
+from __future__ import absolute_import
 from builtins import range
 import Common.LongFilePathOs as os
 import re
-import EdkLogger
+from . import EdkLogger
 from optparse import OptionParser
 from Common.BuildToolError import *
 from XmlRoutines import *

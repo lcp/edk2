@@ -18,6 +18,7 @@
 # into PlatformBuildClassObject form for easier use for AutoGen.
 #
 from __future__ import print_function
+from __future__ import absolute_import
 from builtins import range
 from Common.String import *
 from Common.DataType import *
@@ -27,11 +28,11 @@ from types import *
 from CommonDataClass.CommonClass import SkuInfoClass
 from Common.TargetTxtClassObject import *
 from Common.ToolDefClassObject import *
-from MetaDataTable import *
-from MetaFileTable import *
-from MetaFileParser import *
+from .MetaDataTable import *
+from .MetaFileTable import *
+from .MetaFileParser import *
 
-from WorkspaceCommon import GetDeclaredPcd
+from .WorkspaceCommon import GetDeclaredPcd
 from Common.Misc import AnalyzeDscPcd
 from Common.Misc import ProcessDuplicatedInf
 import re

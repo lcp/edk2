@@ -15,19 +15,19 @@
 ##
 # Import Modules
 #
-import Section
+from __future__ import absolute_import
+from . import Section
 import subprocess
-from Ffs import Ffs
+from .Ffs import Ffs
 import Common.LongFilePathOs as os
-from GenFdsGlobalVariable import GenFdsGlobalVariable
+from .GenFdsGlobalVariable import GenFdsGlobalVariable
 from CommonDataClass.FdfClass import GuidSectionClassObject
 from Common import ToolDefClassObject
 import sys
 from Common import EdkLogger
 from Common.BuildToolError import *
-from FvImageSection import FvImageSection
+from .FvImageSection import FvImageSection
 from Common.LongFilePathSupport import OpenLongFilePath as open
-from GenFds import FindExtendTool
 
 ## generate GUIDed section
 #
@@ -129,6 +129,7 @@ class GuidSection(GuidSectionClassObject) :
         ExternalTool = None
         ExternalOption = None
         if self.NameGuid != None:
+            from .GenFds import FindExtendTool
             ExternalTool, ExternalOption = FindExtendTool(self.KeyStringList, self.CurrentArchList, self.NameGuid)
 
         #

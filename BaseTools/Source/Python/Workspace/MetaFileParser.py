@@ -16,6 +16,7 @@
 # Import Modules
 #
 from __future__ import print_function
+from __future__ import absolute_import
 from builtins import range
 import Common.LongFilePathOs as os
 import re
@@ -34,8 +35,8 @@ from Common.Expression import *
 from CommonDataClass.Exceptions import *
 from Common.LongFilePathSupport import OpenLongFilePath as open
 
-from MetaFileTable import MetaFileStorage
-from MetaFileCommentParser import CheckInfComment
+from .MetaFileTable import MetaFileStorage
+from .MetaFileCommentParser import CheckInfComment
 
 ## A decorator used to parse macro definition
 def ParseMacro(Parser):

@@ -13,10 +13,11 @@
 #  WITHOUT WARRANTIES OR REPRESENTATIONS OF ANY KIND, EITHER EXPRESS OR IMPLIED.
 #
 
+from __future__ import absolute_import
 from builtins import range
 import Common.LongFilePathOs as os
 from io import BytesIO
-import StringTable as st
+from . import StringTable as st
 import array
 import re
 from Common.LongFilePathSupport import OpenLongFilePath as open

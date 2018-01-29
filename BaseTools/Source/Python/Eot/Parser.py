@@ -15,12 +15,13 @@
 ##
 # Import Modules
 #
+from __future__ import absolute_import
 import Common.LongFilePathOs as os, re
 import Common.EdkLogger as EdkLogger
 from Common.DataType import *
 from CommonDataClass.DataClass import *
 from Common.String import CleanString, GetSplitValueList, ReplaceMacro
-import EotGlobalData
+from . import EotGlobalData
 from Common.Misc import sdict
 from Common.String import GetSplitList
 from Common.LongFilePathSupport import OpenLongFilePath as open

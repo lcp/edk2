@@ -14,22 +14,23 @@
 ##
 # Import Modules
 #
+from __future__ import absolute_import
 import Common.LongFilePathOs as os, time, glob
 import Common.EdkLogger as EdkLogger
-import EotGlobalData
+from . import EotGlobalData
 from optparse import OptionParser
 from Common.String import NormPath
 from Common import BuildToolError
 from Common.Misc import GuidStructureStringToGuidString
-from InfParserLite import *
-import c
-import Database
-from FvImage import *
+from .InfParserLite import *
+from . import c
+from . import Database
+from .FvImage import *
 from array import array
-from Report import Report
+from .Report import Report
 from Common.Misc import ParseConsoleLog
 from Common.BuildVersion import gBUILD_VERSION
-from Parser import ConvertGuid
+from .Parser import ConvertGuid
 from Common.LongFilePathSupport import OpenLongFilePath as open
 
 ## Class Eot

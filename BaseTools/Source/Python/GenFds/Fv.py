@@ -15,17 +15,17 @@
 ##
 # Import Modules
 #
+from __future__ import absolute_import
 from builtins import range
 import Common.LongFilePathOs as os
 import subprocess
 from io import BytesIO
 from struct import *
 
-import Ffs
-import AprioriSection
-import FfsFileStatement
-from GenFdsGlobalVariable import GenFdsGlobalVariable
-from GenFds import GenFds
+from . import Ffs
+from . import AprioriSection
+from . import FfsFileStatement
+from .GenFdsGlobalVariable import GenFdsGlobalVariable
 from CommonDataClass.FdfClass import FvClassObject
 from Common.Misc import SaveFileOnChange
 from Common.LongFilePathSupport import CopyLongFilePath
@@ -70,7 +70,7 @@ class FV (FvClassObject):
     #   @retval string      Generated FV file path
     #
     def AddToBuffer (self, Buffer, BaseAddress=None, BlockSize= None, BlockNum=None, ErasePloarity='1', VtfDict=None, MacroDict = {}, Flag=False) :
-
+        from .GenFds import GenFds
         if BaseAddress == None and self.UiFvName.upper() + 'fv' in GenFds.ImageBinDict.keys():
             return GenFds.ImageBinDict[self.UiFvName.upper() + 'fv']
         

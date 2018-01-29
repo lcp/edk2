@@ -13,7 +13,8 @@
 ##
 # Import Modules
 #
-from CommonClass import *
+from __future__ import absolute_import
+from .CommonClass import *
 
 ## ModuleHeaderClass
 #

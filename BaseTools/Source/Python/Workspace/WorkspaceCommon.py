@@ -11,9 +11,10 @@
 # WITHOUT WARRANTIES OR REPRESENTATIONS OF ANY KIND, EITHER EXPRESS OR IMPLIED.
 #
 
+from __future__ import absolute_import
 from Common.Misc import sdict
 from Common.DataType import SUP_MODULE_USER_DEFINED
-from BuildClassObject import LibraryClassObject
+from .BuildClassObject import LibraryClassObject
 import Common.GlobalData as GlobalData
 from Workspace.BuildClassObject import StructurePcd
 

@@ -15,16 +15,17 @@
 # Import Modules
 #
 from __future__ import print_function
+from __future__ import absolute_import
 import Common.LongFilePathOs as os, string, copy, pdb, copy
-import EdkLogger
-import DataType
-from InfClassObject import *
-from DecClassObject import *
-from DscClassObject import *
-from String import *
-from BuildToolError import *
-from Misc import sdict
-import Database as Database
+from . import EdkLogger
+from . import DataType
+from .InfClassObject import *
+from .DecClassObject import *
+from .DscClassObject import *
+from .String import *
+from .BuildToolError import *
+from .Misc import sdict
+from . import Database as Database
 import time as time
 
 ## PcdClassObject

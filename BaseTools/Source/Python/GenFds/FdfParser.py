@@ -17,34 +17,35 @@
 # Import Modules
 #
 from __future__ import print_function
+from __future__ import absolute_import
 import re
 
-import Fd
-import Region
-import Fv
-import AprioriSection
-import FfsInfStatement
-import FfsFileStatement
-import VerSection
-import UiSection
-import FvImageSection
-import DataSection
-import DepexSection
-import CompressSection
-import GuidSection
-import Capsule
-import CapsuleData
-import Rule
-import RuleComplexFile
-import RuleSimpleFile
-import EfiSection
-import Vtf
-import ComponentStatement
-import OptionRom
-import OptRomInfStatement
-import OptRomFileStatement
+from . import Fd
+from . import Region
+from . import Fv
+from . import AprioriSection
+from . import FfsInfStatement
+from . import FfsFileStatement
+from . import VerSection
+from . import UiSection
+from . import FvImageSection
+from . import DataSection
+from . import DepexSection
+from . import CompressSection
+from . import GuidSection
+from . import Capsule
+from . import CapsuleData
+from . import Rule
+from . import RuleComplexFile
+from . import RuleSimpleFile
+from . import EfiSection
+from . import Vtf
+from . import ComponentStatement
+from . import OptionRom
+from . import OptRomInfStatement
+from . import OptRomFileStatement
 
-from GenFdsGlobalVariable import GenFdsGlobalVariable
+from .GenFdsGlobalVariable import GenFdsGlobalVariable
 from Common.BuildToolError import *
 from Common import EdkLogger
 from Common.Misc import PathClass
@@ -58,8 +59,8 @@ from Common.Misc import tdict
 from Common.MultipleWorkspace import MultipleWorkspace as mws
 import Common.LongFilePathOs as os
 from Common.LongFilePathSupport import OpenLongFilePath as open
-from Capsule import EFI_CERT_TYPE_PKCS7_GUID
-from Capsule import EFI_CERT_TYPE_RSA2048_SHA256_GUID
+from .Capsule import EFI_CERT_TYPE_PKCS7_GUID
+from .Capsule import EFI_CERT_TYPE_RSA2048_SHA256_GUID
 
 ##define T_CHAR_SPACE                ' '
 ##define T_CHAR_NULL                 '\0'

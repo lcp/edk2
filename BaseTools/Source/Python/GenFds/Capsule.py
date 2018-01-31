@@ -17,6 +17,7 @@
 #
 from __future__ import absolute_import
 from .GenFdsGlobalVariable import GenFdsGlobalVariable
+from .GenFdsGlobalVariable import FindExtendTool
 from CommonDataClass.FdfClass import CapsuleClassObject
 import Common.LongFilePathOs as os
 import subprocess
@@ -56,7 +57,6 @@ class Capsule (CapsuleClassObject) :
     #   @retval string      Generated Capsule file path
     #
     def GenFmpCapsule(self):
-        from .GenFds import FindExtendTool
         #
         # Generate capsule header
         # typedef struct {

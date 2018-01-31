@@ -93,6 +93,9 @@ class GenFdsGlobalVariable:
 
     SectionHeader = struct.Struct("3B 1B")
     
+    # FvName, FdName, CapName in FDF, Image file name
+    ImageBinDict = {}
+
     ## LoadBuildRule
     #
     @staticmethod

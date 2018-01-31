@@ -462,8 +462,6 @@ def myOptionParser():
 #
 class GenFds :
     FdfParsef = None
-    # FvName, FdName, CapName in FDF, Image file name
-    ImageBinDict = {}
     OnlyGenerateThisFd = None
     OnlyGenerateThisFv = None
     OnlyGenerateThisCap = None

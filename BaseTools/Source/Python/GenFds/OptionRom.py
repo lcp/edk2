@@ -123,17 +123,3 @@ class OPTIONROM (OptionRomClassObject):
         GenFdsGlobalVariable.SharpCounter = 0
         
         return OutputFile
-
-class OverrideAttribs:
-        
-    ## The constructor
-    #
-    #   @param  self        The object pointer
-    #
-    def __init__(self):
-        
-        self.PciVendorId = None
-        self.PciClassCode = None
-        self.PciDeviceId = None
-        self.PciRevision = None
-        self.NeedCompress = None

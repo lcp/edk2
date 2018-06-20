@@ -18,7 +18,7 @@
 from builtins import range
 from struct import *
 from GenFdsGlobalVariable import GenFdsGlobalVariable
-import StringIO
+from io import BytesIO
 import string
 from CommonDataClass.FdfClass import RegionClassObject
 import Common.LongFilePathOs as os
@@ -128,7 +128,7 @@ class Region(RegionClassObject):
                         if self.FvAddress % FvAlignValue != 0:
                             EdkLogger.error("GenFds", GENFDS_ERROR,
                                             "FV (%s) is NOT %s Aligned!" % (FvObj.UiFvName, FvObj.FvAlignment))
-                        FvBuffer = StringIO.StringIO('')
+                        FvBuffer = BytesIO('')
                         FvBaseAddress = '0x%X' % self.FvAddress
                         BlockSize = None
                         BlockNum = None
@@ -136,7 +136,8 @@ class Region(RegionClassObject):
                         if Flag:
                             continue
 
-                        if FvBuffer.len > Size:
+                        FvBufferLen = len(FvBuffer.getvalue())
+                        if FvBufferLen > Size:
                             FvBuffer.close()
                             EdkLogger.error("GenFds", GENFDS_ERROR,
                                             "Size of FV (%s) is larger than Region Size 0x%X specified." % (RegionData, Size))
@@ -145,8 +146,8 @@ class Region(RegionClassObject):
                         #
                         Buffer.write(FvBuffer.getvalue())
                         FvBuffer.close()
-                        FvOffset = FvOffset + FvBuffer.len
-                        Size = Size - FvBuffer.len
+                        FvOffset = FvOffset + FvBufferLen
+                        Size = Size - FvBufferLen
                         continue
                     else:
                         EdkLogger.error("GenFds", GENFDS_ERROR, "FV (%s) is NOT described in FDF file!" % (RegionData))

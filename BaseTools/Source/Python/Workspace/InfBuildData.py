@@ -12,12 +12,13 @@
 # WITHOUT WARRANTIES OR REPRESENTATIONS OF ANY KIND, EITHER EXPRESS OR IMPLIED.
 #
 
+from __future__ import absolute_import
 from builtins import range
 from Common.StringUtils import *
 from Common.DataType import *
 from Common.Misc import *
 from types import *
-from MetaFileParser import *
+from .MetaFileParser import *
 from collections import OrderedDict
 
 from Workspace.BuildClassObject import ModuleBuildClassObject, LibraryClassObject, PcdClassObject

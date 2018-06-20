@@ -17,6 +17,7 @@
 # Import Modules
 #
 from __future__ import print_function
+from __future__ import absolute_import
 import Common.LongFilePathOs as os
 import re
 from io import BytesIO
@@ -46,7 +47,7 @@ from Common.BuildToolError import *
 from Workspace.WorkspaceDatabase import *
 from Common.MultipleWorkspace import MultipleWorkspace as mws
 
-from BuildReport import BuildReport
+from .BuildReport import BuildReport
 from GenPatchPcdTable.GenPatchPcdTable import *
 from PatchPcdValue.PatchPcdValue import *
 

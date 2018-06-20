@@ -15,9 +15,10 @@
 ##
 # Import Modules
 #
+from __future__ import absolute_import
 from builtins import range
 from struct import *
-from GenFdsGlobalVariable import GenFdsGlobalVariable
+from .GenFdsGlobalVariable import GenFdsGlobalVariable
 from io import BytesIO
 import string
 from CommonDataClass.FdfClass import RegionClassObject

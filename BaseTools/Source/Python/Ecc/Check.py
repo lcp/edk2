@@ -10,15 +10,16 @@
 # THE PROGRAM IS DISTRIBUTED UNDER THE BSD LICENSE ON AN "AS IS" BASIS,
 # WITHOUT WARRANTIES OR REPRESENTATIONS OF ANY KIND, EITHER EXPRESS OR IMPLIED.
 #
+from __future__ import absolute_import
 from builtins import range
 import Common.LongFilePathOs as os
 import re
 from CommonDataClass.DataClass import *
 import Common.DataType as DT
-from EccToolError import *
-from MetaDataParser import ParseHeaderCommentSection
-import EccGlobalData
-import c
+from .EccToolError import *
+from .MetaDataParser import ParseHeaderCommentSection
+from . import EccGlobalData
+from . import c
 from Common.LongFilePathSupport import OpenLongFilePath as open
 from Common.MultipleWorkspace import MultipleWorkspace as mws
 

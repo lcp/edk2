@@ -14,6 +14,7 @@
 ##
 # Import Modules
 #
+from builtins import range
 import Common.LongFilePathOs as os
 from Common.LongFilePathSupport import OpenLongFilePath as open
 import sys

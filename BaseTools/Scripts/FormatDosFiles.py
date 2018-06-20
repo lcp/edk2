@@ -17,6 +17,7 @@
 # Import Modules
 #
 from __future__ import print_function
+from builtins import range
 import argparse
 import os
 import os.path
@@ -75,7 +76,7 @@ if __name__ == "__main__":
                         help='increase output messages')
     parser.add_argument('-q', '--quiet', dest='Quiet', action='store_true',
                         help='reduce output messages')
-    parser.add_argument('--debug', dest='Debug', type=int, metavar='[0-9]', choices=range(0, 10), default=0,
+    parser.add_argument('--debug', dest='Debug', type=int, metavar='[0-9]', choices=list(range(0, 10)), default=0,
                         help='set debug level')
     parser.add_argument('--exclude', dest='Exclude', nargs='+', help="directory name or file name which will be excluded")
     args = parser.parse_args()

@@ -13,6 +13,7 @@
 # THE PROGRAM IS DISTRIBUTED UNDER THE BSD LICENSE ON AN "AS IS" BASIS,
 # WITHOUT WARRANTIES OR REPRESENTATIONS OF ANY KIND, EITHER EXPRESS OR IMPLIED.
 
+from builtins import range
 import plugins.EdkPlugins.basemodel.doxygen as doxygen
 import os
 try:
@@ -388,7 +389,7 @@ class PackageDocumentAction(DoxygenAction):
         configFile.AddFile(path)
         return
         no = 0
-        for no in xrange(len(lines)):
+        for no in range(len(lines)):
             if len(lines[no].strip()) == 0:
                 continue
             if lines[no].strip()[:2] in ['##', '//', '/*', '*/']:

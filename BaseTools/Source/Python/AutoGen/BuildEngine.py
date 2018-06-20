@@ -15,6 +15,7 @@
 # Import Modules
 #
 from __future__ import print_function
+from builtins import range
 import Common.LongFilePathOs as os
 import re
 import copy

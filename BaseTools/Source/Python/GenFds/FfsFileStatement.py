@@ -15,6 +15,7 @@
 ##
 # Import Modules
 #
+from builtins import range
 import Ffs
 import Rule
 import Common.LongFilePathOs as os

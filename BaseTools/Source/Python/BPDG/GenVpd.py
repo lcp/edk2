@@ -13,6 +13,7 @@
 #  WITHOUT WARRANTIES OR REPRESENTATIONS OF ANY KIND, EITHER EXPRESS OR IMPLIED.
 #
 
+from builtins import range
 import Common.LongFilePathOs as os
 import StringIO
 import StringTable as st
@@ -229,7 +230,7 @@ class PcdEntry:
 
         ReturnArray = array.array('B')
 
-        for Index in xrange(len(ValueList)):
+        for Index in range(len(ValueList)):
             Value = None
             if ValueList[Index].lower().startswith('0x'):
                 # translate hex value
@@ -255,7 +256,7 @@ class PcdEntry:
 
             ReturnArray.append(Value)
 
-        for Index in xrange(len(ValueList), Size):
+        for Index in range(len(ValueList), Size):
             ReturnArray.append(0)
 
         self.PcdValue = ReturnArray.tolist()
@@ -290,7 +291,7 @@ class PcdEntry:
                                 "Invalid unicode character %s in unicode string %s(File: %s Line: %s)" % \
                                 (Value, UnicodeString, self.FileName, self.Lineno))
 
-        for Index in xrange(len(UnicodeString) * 2, Size):
+        for Index in range(len(UnicodeString) * 2, Size):
             ReturnArray.append(0)
 
         self.PcdValue = ReturnArray.tolist()

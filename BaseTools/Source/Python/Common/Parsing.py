@@ -14,6 +14,7 @@
 ##
 # Import Modules
 #
+from builtins import range
 from StringUtils import *
 from CommonDataClass.DataClass import *
 from DataType import *

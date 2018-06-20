@@ -15,6 +15,7 @@
 '''
 GenInf
 '''
+from builtins import range
 import os
 import stat
 import codecs
@@ -409,7 +410,7 @@ def GenLibraryClasses(ModuleObject):
                 Statement += '|' + FFE
             ModuleList = LibraryClass.GetSupModuleList()
             ArchList = LibraryClass.GetSupArchList()
-            for Index in xrange(0, len(ArchList)):
+            for Index in range(0, len(ArchList)):
                 ArchList[Index] = ConvertArchForInstall(ArchList[Index])
             ArchList.sort()
             SortedArch = ' '.join(ArchList)
@@ -574,7 +575,7 @@ def GenUserExtensions(ModuleObject):
 #         if not Statement:
 #             continue
         ArchList = UserExtension.GetSupArchList()
-        for Index in xrange(0, len(ArchList)):
+        for Index in range(0, len(ArchList)):
             ArchList[Index] = ConvertArchForInstall(ArchList[Index])
         ArchList.sort()
         KeyList = []

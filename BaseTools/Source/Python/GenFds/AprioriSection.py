@@ -15,6 +15,7 @@
 ##
 # Import Modules
 #
+from builtins import range
 from struct import *
 import Common.LongFilePathOs as os
 import StringIO

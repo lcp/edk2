@@ -13,6 +13,7 @@
 #
 
 from __future__ import print_function
+from builtins import range
 import os, sys, logging, traceback, subprocess
 from optparse import OptionParser
 

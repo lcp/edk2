@@ -14,6 +14,7 @@
 ##
 # Import Modules
 #
+from builtins import range
 import re
 import Common.EdkLogger as EdkLogger
 from Common.BuildToolError import *

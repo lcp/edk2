@@ -15,6 +15,7 @@
 
 from __future__ import print_function
 
+from builtins import range
 VersionNumber = '0.1'
 __copyright__ = "Copyright (c) 2015 - 2016, Intel Corporation  All rights reserved."
 
@@ -26,7 +27,7 @@ import subprocess
 import sys
 
 class Verbose:
-    SILENT, ONELINE, NORMAL = range(3)
+    SILENT, ONELINE, NORMAL = list(range(3))
     level = NORMAL
 
 class CommitMessageCheck:
@@ -234,7 +235,7 @@ class CommitMessageCheck:
                 break
             last_sig_line = line.strip()
 
-(START, PRE_PATCH, PATCH) = range(3)
+(START, PRE_PATCH, PATCH) = list(range(3))
 
 class GitDiffCheck:
     """Checks the contents of a git diff."""

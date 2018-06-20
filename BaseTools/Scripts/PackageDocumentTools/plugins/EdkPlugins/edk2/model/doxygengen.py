@@ -16,6 +16,7 @@
 """This file produce action class to generate doxygen document for edk2 codebase.
    The action classes are shared by GUI and command line tools.
 """
+from builtins import range
 import plugins.EdkPlugins.basemodel.doxygen as doxygen
 import os
 try:
@@ -386,7 +387,7 @@ class PackageDocumentAction(DoxygenAction):
         configFile.AddFile(path)
 
         no = 0
-        for no in xrange(len(lines)):
+        for no in range(len(lines)):
             if len(lines[no].strip()) == 0:
                 continue
             if lines[no].strip()[:2] in ['##', '//', '/*', '*/']:

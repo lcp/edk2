@@ -17,6 +17,7 @@ DecParserMisc
 
 ## Import modules
 #
+from builtins import range
 import os
 import Logger.Log as Logger
 from Logger.ToolError import FILE_PARSE_FAILURE

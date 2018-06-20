@@ -13,6 +13,7 @@
 
 ## Import Modules
 #
+from builtins import range
 import string
 import collections
 import struct

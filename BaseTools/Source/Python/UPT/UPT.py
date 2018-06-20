@@ -315,7 +315,7 @@ def Main():
         GlobalData.gDB.CloseDb()
 
         if pf.system() == 'Windows':
-            os.system('subst %s /D' % GlobalData.gWORKSPACE.replace('\\',''))
+            os.system('subst %s /D' % GlobalData.gWORKSPACE.replace('\\', ''))
 
     return ReturnCode
 

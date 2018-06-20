@@ -649,7 +649,7 @@ class DecPomAlignment(PackageObject):
                         ContainerFile,
                         (Item.TokenSpaceGuidCName, Item.TokenCName,
                         Item.DefaultValue, Item.DatumType, Item.TokenValue,
-                        Type, Item.GetHeadComment(), Item.GetTailComment(),''),
+                        Type, Item.GetHeadComment(), Item.GetTailComment(), ''),
                         Language,
                         self.DecParser.GetDefineSectionMacro()
                         )

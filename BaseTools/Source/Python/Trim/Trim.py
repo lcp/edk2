@@ -262,7 +262,7 @@ def TrimPreprocessedVfr(Source, Target):
     CreateDirectory(os.path.dirname(Target))
     
     try:
-        f = open (Source,'r')
+        f = open (Source, 'r')
     except:
         EdkLogger.error("Trim", FILE_OPEN_FAILURE, ExtraData=Source)
     # read whole file
@@ -311,7 +311,7 @@ def TrimPreprocessedVfr(Source, Target):
 
     # save all lines trimmed
     try:
-        f = open (Target,'w')
+        f = open (Target, 'w')
     except:
         EdkLogger.error("Trim", FILE_OPEN_FAILURE, ExtraData=Target)
     f.writelines(Lines)
@@ -408,7 +408,7 @@ def TrimAslFile(Source, Target, IncludePathFile):
     if IncludePathFile:
         try:
             LineNum = 0
-            for Line in open(IncludePathFile,'r'):
+            for Line in open(IncludePathFile, 'r'):
                 LineNum += 1
                 if Line.startswith("/I") or Line.startswith ("-I"):
                     IncludePathList.append(Line[2:].strip())
@@ -426,7 +426,7 @@ def TrimAslFile(Source, Target, IncludePathFile):
 
     # save all lines trimmed
     try:
-        f = open (Target,'w')
+        f = open (Target, 'w')
     except:
         EdkLogger.error("Trim", FILE_OPEN_FAILURE, ExtraData=Target)
 
@@ -561,7 +561,7 @@ def TrimEdkSourceCode(Source, Target):
     CreateDirectory(os.path.dirname(Target))
 
     try:
-        f = open (Source,'rb')
+        f = open (Source, 'rb')
     except:
         EdkLogger.error("Trim", FILE_OPEN_FAILURE, ExtraData=Source)
     # read whole file
@@ -569,7 +569,7 @@ def TrimEdkSourceCode(Source, Target):
     f.close()
 
     NewLines = None
-    for Re,Repl in gImportCodePatterns:
+    for Re, Repl in gImportCodePatterns:
         if NewLines is None:
             NewLines = Re.sub(Repl, Lines)
         else:
@@ -580,7 +580,7 @@ def TrimEdkSourceCode(Source, Target):
         return
 
     try:
-        f = open (Target,'wb')
+        f = open (Target, 'wb')
     except:
         EdkLogger.error("Trim", FILE_OPEN_FAILURE, ExtraData=Target)
     f.write(NewLines)

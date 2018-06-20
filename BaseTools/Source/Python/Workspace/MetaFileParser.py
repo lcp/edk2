@@ -15,6 +15,7 @@
 ##
 # Import Modules
 #
+from __future__ import print_function
 import Common.LongFilePathOs as os
 import re
 import time
@@ -1639,7 +1640,7 @@ class DscParser(MetaFileParser):
         try:
             self._ValueList[2] = '|'.join(ValList)
         except Exception:
-            print ValList
+            print(ValList)
 
     def __ProcessComponent(self):
         self._ValueList[0] = ReplaceMacro(self._ValueList[0], self._Macros)

@@ -16,6 +16,7 @@
 ##
 # Import Modules
 #
+from __future__ import print_function
 import re
 
 import Fd
@@ -4765,7 +4766,7 @@ if __name__ == "__main__":
     try:
         test_file = sys.argv[1]
     except IndexError as v:
-        print "Usage: %s filename" % sys.argv[0]
+        print("Usage: %s filename" % sys.argv[0])
         sys.exit(1)
 
     parser = FdfParser(test_file)
@@ -4773,7 +4774,7 @@ if __name__ == "__main__":
         parser.ParseFile()
         parser.CycleReferenceCheck()
     except Warning as X:
-        print str(X)
+        print(str(X))
     else:
-        print "Success!"
+        print("Success!")
 

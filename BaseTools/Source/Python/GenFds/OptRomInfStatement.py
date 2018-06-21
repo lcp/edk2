@@ -46,9 +46,8 @@ class OptRomInfStatement (FfsInfStatement):
     #
     def __GetOptRomParams(self):
         
-        from . import OptionRom
         if self.OverrideAttribs is None:
-            self.OverrideAttribs = OptionRom.OverrideAttribs()
+            self.OverrideAttribs = OverrideAttribs()
 
         if self.OverrideAttribs.NeedCompress is None:
             self.OverrideAttribs.NeedCompress = self.OptRomDefs.get ('PCI_COMPRESS')
@@ -152,4 +151,16 @@ class OptRomInfStatement (FfsInfStatement):
         
         return OutputFileList
 
-    
+class OverrideAttribs:
+
+    ## The constructor
+    #
+    #   @param  self        The object pointer
+    #
+    def __init__(self):
+
+        self.PciVendorId = None
+        self.PciClassCode = None
+        self.PciDeviceId = None
+        self.PciRevision = None
+        self.NeedCompress = None

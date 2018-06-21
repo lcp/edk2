@@ -203,8 +203,8 @@ class Capsule (CapsuleClassObject) :
     #
     def GenCapsule(self):
         from .GenFds import GenFds
-        if self.UiCapsuleName.upper() + 'cap' in GenFds.ImageBinDict:
-            return GenFds.ImageBinDict[self.UiCapsuleName.upper() + 'cap']
+        if self.UiCapsuleName.upper() + 'cap' in GenFdsGlobalVariable.ImageBinDict:
+            return GenFdsGlobalVariable.ImageBinDict[self.UiCapsuleName.upper() + 'cap']
 
         GenFdsGlobalVariable.InfLogger( "\nGenerate %s Capsule" %self.UiCapsuleName)
         if ('CAPSULE_GUID' in self.TokensDict and 
@@ -238,7 +238,7 @@ class Capsule (CapsuleClassObject) :
 
         GenFdsGlobalVariable.VerboseLogger( "\nGenerate %s Capsule Successfully" %self.UiCapsuleName)
         GenFdsGlobalVariable.SharpCounter = 0
-        GenFds.ImageBinDict[self.UiCapsuleName.upper() + 'cap'] = CapOutputFile
+        GenFdsGlobalVariable.ImageBinDict[self.UiCapsuleName.upper() + 'cap'] = CapOutputFile
         return CapOutputFile
 
     ## Generate inf file for capsule

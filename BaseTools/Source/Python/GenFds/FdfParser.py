@@ -4440,7 +4440,7 @@ class FdfParser:
     #
     def __GetOptRomOverrides(self, Obj):
         if self.__IsToken('{'):
-            Overrides = OptionRom.OverrideAttribs()
+            Overrides = OptRomInfStatement.OverrideAttribs()
             while True:
                 if self.__IsKeyword( "PCI_VENDOR_ID"):
                     if not self.__IsToken( "="):

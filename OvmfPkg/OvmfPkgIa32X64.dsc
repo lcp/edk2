@@ -68,6 +68,15 @@
 !endif
 !endif
 
+  #
+  # Update capsule definition
+  #
+  DEFINE FMP_DUMMY_ENABLE        = FALSE
+  DEFINE FMP_DUMMY_DEVICE        = 243c0333-24a1-42cb-bbf6-03337eb26134
+!if $(FMP_DUMMY_ENABLE) == TRUE
+  POSTBUILD                      = python OvmfPkg/Capsule/GenerateCapsule/GenCapsuleAll.py
+!endif
+
 [BuildOptions]
   GCC:RELEASE_*_*_CC_FLAGS             = -DMDEPKG_NDEBUG
   INTEL:RELEASE_*_*_CC_FLAGS           = /D MDEPKG_NDEBUG
@@ -228,6 +237,10 @@
   TpmMeasurementLib|MdeModulePkg/Library/TpmMeasurementLibNull/TpmMeasurementLibNull.inf
 !endif
 
+!if $(FMP_DUMMY_ENABLE) == TRUE
+  CapsuleLib|MdeModulePkg/Library/DxeCapsuleLibFmp/DxeCapsuleLib.inf
+!endif
+
 [LibraryClasses.common]
   BaseCryptLib|CryptoPkg/Library/BaseCryptLib/BaseCryptLib.inf
 
@@ -331,6 +344,9 @@
   BaseCryptLib|CryptoPkg/Library/BaseCryptLib/RuntimeCryptLib.inf
   PciLib|OvmfPkg/Library/DxePciLibI440FxQ35/DxePciLibI440FxQ35.inf
   QemuFwCfgS3Lib|OvmfPkg/Library/QemuFwCfgS3Lib/DxeQemuFwCfgS3LibFwCfg.inf
+!if $(FMP_DUMMY_ENABLE) == TRUE
+  CapsuleLib|MdeModulePkg/Library/DxeCapsuleLibFmp/DxeRuntimeCapsuleLib.inf
+!endif
 
 [LibraryClasses.common.UEFI_DRIVER]
   PcdLib|MdePkg/Library/DxePcdLib/DxePcdLib.inf
@@ -455,6 +471,9 @@
   gUefiOvmfPkgTokenSpaceGuid.PcdSmmSmramRequire|TRUE
   gUefiCpuPkgTokenSpaceGuid.PcdCpuHotPlugSupport|TRUE
   gEfiMdeModulePkgTokenSpaceGuid.PcdEnableVariableRuntimeCache|FALSE
+!endif
+!if $(FMP_DUMMY_ENABLE) == TRUE
+  gEfiMdeModulePkgTokenSpaceGuid.PcdSupportUpdateCapsuleReset|TRUE
 !endif
 
 [PcdsFixedAtBuild]
@@ -975,5 +994,52 @@
   SecurityPkg/Tcg/TcgDxe/TcgDxe.inf {
     <LibraryClasses>
       Tpm12DeviceLib|SecurityPkg/Library/Tpm12DeviceLibDTpm/Tpm12DeviceLibDTpm.inf
+  }
+!endif
+
+  #
+  # FMP Dummy Device
+  #
+!if $(FMP_DUMMY_ENABLE)
+  MdeModulePkg/Universal/EsrtFmpDxe/EsrtFmpDxe.inf
+  FmpDevicePkg/FmpDxe/FmpDxe.inf {
+    <Defines>
+      #
+      # ESRT and FMP GUID for dummy device capsule update
+      #
+      FILE_GUID = $(FMP_DUMMY_DEVICE)
+    <PcdsFixedAtBuild>
+      #
+      # Unicode name string that is used to populate FMP Image Descriptor for this capsule update module
+      #
+      gFmpDevicePkgTokenSpaceGuid.PcdFmpDeviceImageIdName|L"Dummy Firmware Device"
+
+      #
+      # ESRT and FMP Lowest Support Version for this capsule update module
+      # 000.000.000.000
+      #
+      gFmpDevicePkgTokenSpaceGuid.PcdFmpDeviceBuildTimeLowestSupportedVersion|0x00000000
+
+      gFmpDevicePkgTokenSpaceGuid.PcdFmpDeviceProgressWatchdogTimeInSeconds|2
+
+      #
+      # Certificates used to authenticate capsule update image
+      #
+      !include BaseTools/Source/Python/Pkcs7Sign/TestRoot.cer.gFmpDevicePkgTokenSpaceGuid.PcdFmpDevicePkcs7CertBufferXdr.inc
+
+    <LibraryClasses>
+      #
+      # Generic libraries that are used "as is" by all FMP modules
+      #
+      FmpPayloadHeaderLib|FmpDevicePkg/Library/FmpPayloadHeaderLibV1/FmpPayloadHeaderLibV1.inf
+      FmpAuthenticationLib|SecurityPkg/Library/FmpAuthenticationLibPkcs7/FmpAuthenticationLibPkcs7.inf
+      #
+      # Platform specific capsule policy library
+      #
+      CapsuleUpdatePolicyLib|FmpDevicePkg/Library/CapsuleUpdatePolicyLibNull/CapsuleUpdatePolicyLibNull.inf
+      #
+      # Device specific library that processes a capsule and updates the FW storage device
+      #
+      FmpDeviceLib|OvmfPkg/Capsule/Library/FmpDeviceLibDummy/FmpDeviceLib.inf
   }
 !endif

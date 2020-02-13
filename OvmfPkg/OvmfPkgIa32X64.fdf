@@ -370,6 +370,14 @@ INF  SecurityPkg/Tcg/Tcg2Config/Tcg2ConfigDxe.inf
 !endif
 !endif
 
+#
+# FMP Dummy Device
+#
+!if $(FMP_DUMMY_ENABLE)
+INF  MdeModulePkg/Universal/EsrtFmpDxe/EsrtFmpDxe.inf
+INF  FILE_GUID = $(FMP_DUMMY_DEVICE) FmpDevicePkg/FmpDxe/FmpDxe.inf
+!endif
+
 ################################################################################
 
 [FV.FVMAIN_COMPACT]

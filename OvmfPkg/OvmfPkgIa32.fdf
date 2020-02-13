@@ -363,6 +363,14 @@ INF  SecurityPkg/Tcg/Tcg2Config/Tcg2ConfigDxe.inf
 !endif
 !endif
 
+#
+# FMP Dummy Device
+#
+!if $(FMP_DUMMY_ENABLE)
+INF  MdeModulePkg/Universal/EsrtFmpDxe/EsrtFmpDxe.inf
+INF  FILE_GUID = $(FMP_DUMMY_DEVICE) FmpDevicePkg/FmpDxe/FmpDxe.inf
+!endif
+
 !if $(LOAD_X64_ON_IA32_ENABLE) == TRUE
 INF  OvmfPkg/CompatImageLoaderDxe/CompatImageLoaderDxe.inf
 !endif

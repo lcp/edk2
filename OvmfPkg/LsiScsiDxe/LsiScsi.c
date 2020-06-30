@@ -359,6 +359,8 @@ LsiScsiControllerStart (
 {
   EFI_STATUS           Status;
   LSI_SCSI_DEV         *Dev;
+  UINTN                Pages;
+  UINTN                BytesMapped;
 
   Dev = AllocateZeroPool (sizeof (*Dev));
   if (Dev == NULL) {
@@ -406,9 +408,66 @@ LsiScsiControllerStart (
     goto CloseProtocol;
   }
 
-  Status = LsiScsiReset (Dev);
+  //
+  // Signal device supports 64-bit DMA addresses
+  //
+  Status = Dev->PciIo->Attributes (
+                         Dev->PciIo,
+                         EfiPciIoAttributeOperationEnable,
+                         EFI_PCI_IO_ATTRIBUTE_DUAL_ADDRESS_CYCLE,
+                         NULL
+                         );
+  if (EFI_ERROR (Status)) {
+    //
+    // Warn user that device will only be using 32-bit DMA addresses.
+    //
+    // Note that this does not prevent the device/driver from working
+    // and therefore we only warn and continue as usual.
+    //
+    DEBUG ((
+      DEBUG_WARN,
+      "%a: failed to enable 64-bit DMA addresses\n",
+      __FUNCTION__
+      ));
+  }
+
+  //
+  // Create buffers for data transfer
+  //
+  Pages = EFI_SIZE_TO_PAGES (sizeof (*Dev->Dma));
+  Status = Dev->PciIo->AllocateBuffer (
+                         Dev->PciIo,
+                         AllocateAnyPages,
+                         EfiBootServicesData,
+                         Pages,
+                         (VOID **)&Dev->Dma,
+                         EFI_PCI_ATTRIBUTE_MEMORY_CACHED
+                         );
   if (EFI_ERROR (Status)) {
     goto RestoreAttributes;
+  }
+
+  BytesMapped = EFI_PAGES_TO_SIZE (Pages);
+  Status = Dev->PciIo->Map (
+                         Dev->PciIo,
+                         EfiPciIoOperationBusMasterCommonBuffer,
+                         Dev->Dma,
+                         &BytesMapped,
+                         &Dev->DmaPhysical,
+                         &Dev->DmaMapping
+                         );
+  if (EFI_ERROR (Status)) {
+    goto FreeBuffer;
+  }
+
+  if (BytesMapped != EFI_PAGES_TO_SIZE (Pages)) {
+    Status = EFI_OUT_OF_RESOURCES;
+    goto Unmap;
+  }
+
+  Status = LsiScsiReset (Dev);
+  if (EFI_ERROR (Status)) {
+    goto Unmap;
   }
 
   Status = gBS->CreateEvent (
@@ -456,6 +515,19 @@ CloseExitBoot:
 
 UninitDev:
   LsiScsiReset (Dev);
+
+Unmap:
+  Dev->PciIo->Unmap (
+                Dev->PciIo,
+                Dev->DmaMapping
+                );
+
+FreeBuffer:
+  Dev->PciIo->FreeBuffer (
+                Dev->PciIo,
+                Pages,
+                Dev->Dma
+                );
 
 RestoreAttributes:
   Dev->PciIo->Attributes (
@@ -518,6 +590,17 @@ LsiScsiControllerStop (
   gBS->CloseEvent (Dev->ExitBoot);
 
   LsiScsiReset (Dev);
+
+  Dev->PciIo->Unmap (
+                Dev->PciIo,
+                Dev->DmaMapping
+                );
+
+  Dev->PciIo->FreeBuffer (
+                Dev->PciIo,
+                EFI_SIZE_TO_PAGES (sizeof (*Dev->Dma)),
+                Dev->Dma
+                );
 
   Dev->PciIo->Attributes (
                 Dev->PciIo,

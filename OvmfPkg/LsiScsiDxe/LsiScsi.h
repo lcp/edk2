@@ -14,6 +14,11 @@
 
 typedef struct {
   //
+  // Allocate 32 UINT32 entries for the script and it's sufficient for
+  // 16 instructions.
+  //
+  UINT32                          Script[32];
+  //
   // The max size of CDB is 32.
   //
   UINT8                           Cdb[32];
@@ -21,6 +26,18 @@ typedef struct {
   // Allocate 64KB for read/write buffer.
   //
   UINT8                           Data[0x10000];
+  //
+  // For SCSI Message In phase
+  //
+  UINT8                           MsgIn[2];
+  //
+  // For SCSI Message Out phase
+  //
+  UINT8                           MsgOut;
+  //
+  // For SCSI Status phase
+  //
+  UINT8                           Status;
 } LSI_SCSI_DMA_BUFFER;
 
 typedef struct {
@@ -30,6 +47,7 @@ typedef struct {
   EFI_PCI_IO_PROTOCOL             *PciIo;
   UINT8                           MaxTarget;
   UINT8                           MaxLun;
+  UINT32                          StallPerPollUsec;
   LSI_SCSI_DMA_BUFFER             *Dma;
   EFI_PHYSICAL_ADDRESS            DmaPhysical;
   VOID                            *DmaMapping;
@@ -41,6 +59,9 @@ typedef struct {
 
 #define LSI_SCSI_FROM_PASS_THRU(PassThruPtr) \
   CR (PassThruPtr, LSI_SCSI_DEV, PassThru, LSI_SCSI_DEV_SIGNATURE)
+
+#define LSI_SCSI_DMA_ADDR_LOW(Dev, MemberName) \
+  ((UINT32)(Dev->DmaPhysical + OFFSET_OF (LSI_SCSI_DMA_BUFFER, MemberName)))
 
 
 //

@@ -45,6 +45,42 @@ Out8 (
 
 STATIC
 EFI_STATUS
+Out32 (
+  IN LSI_SCSI_DEV       *Dev,
+  IN UINT32             Addr,
+  IN UINT32             Data
+  )
+{
+  return Dev->PciIo->Io.Write (
+                          Dev->PciIo,
+                          EfiPciIoWidthUint32,
+                          PCI_BAR_IDX0,
+                          Addr,
+                          1,
+                          &Data
+                          );
+}
+
+STATIC
+EFI_STATUS
+In8 (
+  IN  LSI_SCSI_DEV *Dev,
+  IN  UINT32       Addr,
+  OUT UINT8        *Data
+  )
+{
+  return Dev->PciIo->Io.Read (
+                          Dev->PciIo,
+                          EfiPciIoWidthUint8,
+                          PCI_BAR_IDX0,
+                          Addr,
+                          1,
+                          Data
+                          );
+}
+
+STATIC
+EFI_STATUS
 LsiScsiReset (
   IN LSI_SCSI_DEV *Dev
   )
@@ -141,6 +177,272 @@ LsiScsiCheckRequest (
   return EFI_SUCCESS;
 }
 
+/**
+
+  Interpret the request packet from the Extended SCSI Pass Thru Protocol and
+  compose the script to submit the command and data to the contorller.
+
+  @param[in] Dev          The LSI 53C895A SCSI device the packet targets.
+
+  @param[in] Target       The SCSI target controlled by the LSI 53C895A SCSI
+                          device.
+
+  @param[in] Lun          The Logical Unit Number under the SCSI target.
+
+  @param[in out] Packet   The Extended SCSI Pass Thru Protocol packet.
+
+
+  @retval EFI_SUCCESS  The Extended SCSI Pass Thru Protocol packet was valid.
+
+  @return              Otherwise, invalid or unsupported parameters were
+                       detected. Status codes are meant for direct forwarding
+                       by the EFI_EXT_SCSI_PASS_THRU_PROTOCOL.PassThru()
+                       implementation.
+
+ **/
+STATIC
+EFI_STATUS
+LsiScsiProcessRequest (
+  IN LSI_SCSI_DEV                                   *Dev,
+  IN UINT8                                          Target,
+  IN UINT64                                         Lun,
+  IN OUT EFI_EXT_SCSI_PASS_THRU_SCSI_REQUEST_PACKET *Packet
+  )
+{
+  EFI_STATUS Status;
+  UINT32     *Script;
+  UINT8      *Cdb;
+  UINT8      *MsgOut;
+  UINT8      *MsgIn;
+  UINT8      *ScsiStatus;
+  UINT8      *Data;
+  UINT8      DStat;
+  UINT8      SIst0;
+  UINT8      SIst1;
+
+  Script      = Dev->Dma->Script;
+  Cdb         = Dev->Dma->Cdb;
+  Data        = Dev->Dma->Data;
+  MsgIn       = Dev->Dma->MsgIn;
+  MsgOut      = &Dev->Dma->MsgOut;
+  ScsiStatus  = &Dev->Dma->Status;
+
+  *ScsiStatus = 0xFF;
+
+  SetMem (Cdb, sizeof Dev->Dma->Cdb, 0x00);
+  CopyMem (Cdb, Packet->Cdb, Packet->CdbLength);
+
+  //
+  // Clean up the DMA buffer for the script.
+  //
+  SetMem (Script, sizeof Dev->Dma->Script, 0x00);
+
+  //
+  // Compose the script to transfer data between the host and the device.
+  //
+  // Reference:
+  //   LSI53C895A PCI to Ultra2 SCSI Controller Version 2.2
+  //   - Chapter 5 SCSI SCRIPT Instruction Set
+  //
+  // All instructions used here consist of 2 32bit words. The first word
+  // contains the command to execute. The second word is loaded into the
+  // DMA SCRIPTS Pointer Save (DSPS) register as either the DMA address
+  // for data transmission or the address/offset for the jump command.
+  // Some commands, such as the selection of the target, don't need to
+  // transfer data through DMA or jump to another instruction, then DSPS
+  // has to be zero.
+  //
+  // There are 3 major parts in this script. The first part (1~3) contains
+  // the instructions to select target and LUN and send the SCSI command
+  // from the request packet. The second part (4~7) is to handle the
+  // potential disconnection and prepare for the data transmission. The
+  // instructions in the third part (8~10) transmit the given data and
+  // collect the result. Instruction 11 raises the interrupt and marks the
+  // end of the script.
+  //
+
+  //
+  // 1. Select target.
+  //
+  *Script++ = LSI_INS_TYPE_IO | LSI_INS_IO_OPC_SEL | (UINT32)Target << 16;
+  *Script++ = 0x00000000;
+
+  //
+  // 2. Select LUN.
+  //
+  *MsgOut   = 0x80 | (UINT8) Lun; // 0x80: Identify bit
+  *Script++ = LSI_INS_TYPE_BLK | LSI_INS_BLK_SCSIP_MSG_OUT | \
+              sizeof Dev->Dma->MsgOut;
+  *Script++ = LSI_SCSI_DMA_ADDR_LOW (Dev, MsgOut);
+
+  //
+  // 3. Send the SCSI Command.
+  //
+  *Script++ = LSI_INS_TYPE_BLK | LSI_INS_BLK_SCSIP_CMD | \
+              sizeof Dev->Dma->Cdb;
+  *Script++ = LSI_SCSI_DMA_ADDR_LOW (Dev, Cdb);
+
+  //
+  // 4. Check whether the current SCSI phase is "Message In" or not
+  //    and jump to 8 if it is.
+  //
+  *Script++ = LSI_INS_TYPE_TC | LSI_INS_TC_OPC_JMP | \
+              LSI_INS_TC_SCSIP_MSG_IN | LSI_INS_TC_RA | \
+              LSI_INS_TC_CP;
+  *Script++ = 0x00000018;
+
+  //
+  // 5. Read "Message" from the initiator to trigger reselect.
+  //
+  *Script++ = LSI_INS_TYPE_BLK | LSI_INS_BLK_SCSIP_MSG_IN | \
+              sizeof Dev->Dma->MsgIn;
+  *Script++ = LSI_SCSI_DMA_ADDR_LOW (Dev, MsgIn);
+
+  //
+  // 6. Wait reselect.
+  //
+  *Script++ = LSI_INS_TYPE_IO | LSI_INS_IO_OPC_WAIT_RESEL;
+  *Script++ = 0x00000000;
+
+  //
+  // 7. Read "Message" from the initiator again
+  //
+  *Script++ = LSI_INS_TYPE_BLK | LSI_INS_BLK_SCSIP_MSG_IN | \
+              sizeof Dev->Dma->MsgIn;
+  *Script++ = LSI_SCSI_DMA_ADDR_LOW (Dev, MsgIn);
+
+  //
+  // 8. Set the DMA command for the read/write operations.
+  //
+  if (Packet->DataDirection == EFI_EXT_SCSI_DATA_DIRECTION_READ &&
+      Packet->InTransferLength > 0) {
+    *Script++ = LSI_INS_TYPE_BLK | LSI_INS_BLK_SCSIP_DAT_IN | \
+                Packet->InTransferLength;
+    *Script++ = LSI_SCSI_DMA_ADDR_LOW (Dev, Data);
+  } else if (Packet->DataDirection == EFI_EXT_SCSI_DATA_DIRECTION_WRITE &&
+             Packet->OutTransferLength > 0) {
+    // LsiScsiCheckRequest() guarantees that OutTransferLength is no
+    // larger than sizeof Dev->Dma->Data, so we can safely copy the
+    // the data to Dev->Dma->Data.
+    CopyMem (Data, Packet->OutDataBuffer, Packet->OutTransferLength);
+    *Script++ = LSI_INS_TYPE_BLK | LSI_INS_BLK_SCSIP_DAT_OUT | \
+                Packet->OutTransferLength;
+    *Script++ = LSI_SCSI_DMA_ADDR_LOW (Dev, Data);
+  }
+
+  //
+  // 9. Get the SCSI status.
+  //
+  *Script++ = LSI_INS_TYPE_BLK | LSI_INS_BLK_SCSIP_STAT | \
+              sizeof Dev->Dma->Status;
+  *Script++ = LSI_SCSI_DMA_ADDR_LOW (Dev, Status);
+
+  //
+  // 10. Get the SCSI message.
+  //
+  *Script++ = LSI_INS_TYPE_BLK | LSI_INS_BLK_SCSIP_MSG_IN | \
+              sizeof Dev->Dma->MsgIn;
+  *Script++ = LSI_SCSI_DMA_ADDR_LOW (Dev, MsgIn);
+
+  //
+  // 11. Raise the interrupt to end the script.
+  //
+  *Script++ = LSI_INS_TYPE_TC | LSI_INS_TC_OPC_INT | \
+              LSI_INS_TC_SCSIP_DAT_OUT | LSI_INS_TC_JMP;
+  *Script++ = 0x00000000;
+
+  //
+  // Make sure the size of the script doesn't exceed the buffer.
+  //
+  ASSERT (Script < Dev->Dma->Script + sizeof Dev->Dma->Script);
+
+  //
+  // The controller starts to execute the script once the DMA Script
+  // Pointer (DSP) register is set.
+  //
+  Status = Out32 (Dev, LSI_REG_DSP, LSI_SCSI_DMA_ADDR_LOW(Dev, Script));
+  if (EFI_ERROR (Status)) {
+    return Status;
+  }
+
+  //
+  // Poll the device registers (DSTAT, SIST0, and SIST1) until the SIR
+  // bit sets.
+  //
+  for(;;) {
+    Status = In8 (Dev, LSI_REG_DSTAT, &DStat);
+    if (EFI_ERROR (Status)) {
+      goto Error;
+    }
+    Status = In8 (Dev, LSI_REG_SIST0, &SIst0);
+    if (EFI_ERROR (Status)) {
+      goto Error;
+    }
+    Status = In8 (Dev, LSI_REG_SIST1, &SIst1);
+    if (EFI_ERROR (Status)) {
+      goto Error;
+    }
+
+    if (SIst0 != 0 || SIst1 != 0) {
+      goto Error;
+    }
+
+    //
+    // Check the SIR (SCRIPTS Interrupt Instruction Received) bit.
+    //
+    if (DStat & LSI_DSTAT_SIR) {
+      break;
+    }
+
+    gBS->Stall (Dev->StallPerPollUsec);
+  }
+
+  //
+  // Check if everything is good.
+  //   SCSI Message Code 0x00: COMMAND COMPLETE
+  //   SCSI Status  Code 0x00: Good
+  //
+  if (MsgIn[0] == 0 && *ScsiStatus == 0) {
+    //
+    // Copy Data to InDataBuffer if necessary.
+    //
+    if (Packet->DataDirection == EFI_EXT_SCSI_DATA_DIRECTION_READ) {
+      CopyMem (Packet->InDataBuffer, Data, Packet->InTransferLength);
+    }
+
+    //
+    // The controller doesn't return sense data when replying "TEST UNIT READY",
+    // so we have to set SenseDataLength to 0 to notify ScsiIo to issue
+    // "REQUEST SENSE" for the sense data.
+    //
+    if (Cdb[0] == 0x00) {
+      Packet->SenseDataLength = 0;
+    }
+    Packet->HostAdapterStatus = EFI_EXT_SCSI_STATUS_HOST_ADAPTER_OK;
+    Packet->TargetStatus      = EFI_EXT_SCSI_STATUS_TARGET_GOOD;
+
+    return EFI_SUCCESS;
+  }
+
+Error:
+  DEBUG((DEBUG_VERBOSE, "%a: dstat: %02X, sist0: %02X, sist1: %02X\n",
+         __FUNCTION__, DStat, SIst0, SIst1));
+  //
+  // Update the request packet to reflect the status.
+  //
+  if (*ScsiStatus != 0xFF) {
+    Packet->TargetStatus    = *ScsiStatus;
+  } else {
+    Packet->TargetStatus    = EFI_EXT_SCSI_STATUS_TARGET_TASK_ABORTED;
+  }
+  Packet->HostAdapterStatus = EFI_EXT_SCSI_STATUS_HOST_ADAPTER_OTHER;
+  Packet->InTransferLength  = 0;
+  Packet->OutTransferLength = 0;
+  Packet->SenseDataLength   = 0;
+
+  return EFI_DEVICE_ERROR;
+}
+
 //
 // The next seven functions implement EFI_EXT_SCSI_PASS_THRU_PROTOCOL
 // for the LSI 53C895A SCSI Controller. Refer to UEFI Spec 2.3.1 + Errata C,
@@ -164,6 +466,11 @@ LsiScsiPassThru (
 
   Dev = LSI_SCSI_FROM_PASS_THRU (This);
   Status = LsiScsiCheckRequest (Dev, *Target, Lun, Packet);
+  if (EFI_ERROR (Status)) {
+    return Status;
+  }
+
+  Status = LsiScsiProcessRequest (Dev, *Target, Lun, Packet);
   if (EFI_ERROR (Status)) {
     return Status;
   }
@@ -469,6 +776,7 @@ LsiScsiControllerStart (
 
   Dev->MaxTarget = PcdGet8 (PcdLsiScsiMaxTargetLimit);
   Dev->MaxLun = PcdGet8 (PcdLsiScsiMaxLunLimit);
+  Dev->StallPerPollUsec = PcdGet32 (PcdLsiScsiStallPerPollUsec);
 
   Status = gBS->OpenProtocol (
                   ControllerHandle,

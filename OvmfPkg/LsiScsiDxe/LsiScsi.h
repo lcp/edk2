@@ -14,6 +14,10 @@
 
 typedef struct {
   //
+  // The max size of CDB is 32.
+  //
+  UINT8                           Cdb[32];
+  //
   // Allocate 64KB for read/write buffer.
   //
   UINT8                           Data[0x10000];

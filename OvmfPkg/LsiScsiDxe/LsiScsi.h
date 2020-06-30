@@ -14,6 +14,8 @@
 
 typedef struct {
   UINT32                          Signature;
+  UINT8                           MaxTarget;
+  UINT8                           MaxLun;
   EFI_EXT_SCSI_PASS_THRU_MODE     PassThruMode;
   EFI_EXT_SCSI_PASS_THRU_PROTOCOL PassThru;
 } LSI_SCSI_DEV;
@@ -22,6 +24,7 @@ typedef struct {
 
 #define LSI_SCSI_FROM_PASS_THRU(PassThruPtr) \
   CR (PassThruPtr, LSI_SCSI_DEV, PassThru, LSI_SCSI_DEV_SIGNATURE)
+
 
 //
 // Probe, start and stop functions of this driver, called by the DXE core for

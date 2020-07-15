@@ -25,6 +25,7 @@
 #define LSI_REG_DSP               0x2C
 #define LSI_REG_SIST0             0x42
 #define LSI_REG_SIST1             0x43
+#define LSI_REG_CSBC              0xDC
 
 //
 // The status bits for DMA Status (DSTAT)

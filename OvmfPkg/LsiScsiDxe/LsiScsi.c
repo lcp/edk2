@@ -81,6 +81,24 @@ In8 (
 
 STATIC
 EFI_STATUS
+In32 (
+  IN  LSI_SCSI_DEV *Dev,
+  IN  UINT32       Addr,
+  OUT UINT32       *Data
+  )
+{
+  return Dev->PciIo->Io.Read (
+                          Dev->PciIo,
+                          EfiPciIoWidthUint32,
+                          PCI_BAR_IDX0,
+                          Addr,
+                          1,
+                          Data
+                          );
+}
+
+STATIC
+EFI_STATUS
 LsiScsiReset (
   IN LSI_SCSI_DEV *Dev
   )
@@ -219,6 +237,8 @@ LsiScsiProcessRequest (
   UINT8      DStat;
   UINT8      SIst0;
   UINT8      SIst1;
+  UINT32     Csbc;
+  UINT32     CsbcBase;
 
   Script      = Dev->Dma->Script;
   Cdb         = Dev->Dma->Cdb;
@@ -231,6 +251,18 @@ LsiScsiProcessRequest (
 
   SetMem (Cdb, sizeof Dev->Dma->Cdb, 0x00);
   CopyMem (Cdb, Packet->Cdb, Packet->CdbLength);
+
+  //
+  // Fetch the first Cumulative SCSI Byte Count (CSBC).
+  //
+  // CSBC is a cumulative counter of the actual number of bytes that has been
+  // transferred across the SCSI bus during data phases, i.e. it will not
+  // bytes sent in command, status, message in and out phases.
+  //
+  Status = In32 (Dev, LSI_REG_CSBC, &CsbcBase);
+  if (EFI_ERROR (Status)) {
+    return Status;
+  }
 
   //
   // Clean up the DMA buffer for the script.
@@ -405,6 +437,24 @@ LsiScsiProcessRequest (
     }
 
     gBS->Stall (Dev->StallPerPollUsec);
+  }
+
+  //
+  // Fetch CSBC again to calculate the transferred bytes and update
+  // InTransferLength/OutTransferLength.
+  //
+  // Note: The number of transferred bytes is bounded by
+  //       "sizeof Dev->Dma->Data", so it's safe to subtract CsbcBase
+  //       from Csbc.
+  //
+  Status = In32 (Dev, LSI_REG_CSBC, &Csbc);
+  if (EFI_ERROR (Status)) {
+    return Status;
+  }
+  if (Packet->InTransferLength > 0) {
+    Packet->InTransferLength = Csbc - CsbcBase;
+  } else if (Packet->OutTransferLength > 0) {
+    Packet->OutTransferLength = Csbc - CsbcBase;
   }
 
   //
